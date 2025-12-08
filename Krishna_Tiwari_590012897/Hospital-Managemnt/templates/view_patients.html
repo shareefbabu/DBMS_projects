@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Patients</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="hamburger" onclick="toggleMenu()">☰</div>
+<div id="sidebar" class="sidebar">
+  <a href="/">Home</a><a href="/add_patient">Add Patient</a><a href="/view_patients">View Patients</a>
+  <a href="/add_doctor">Add Doctor</a><a href="/view_doctors">View Doctors</a><a href="/add_appointment">Add Appointment</a>
+  <a href="/view_appointments">View Appointments</a>
+</div>
+<div id="overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+<header class="header"><div class="header-text"><h1>{{ page_title }}</h1><p>{{ page_subtitle }}</p></div></header>
+
+<div class="container">
+  <table>
+    <tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Disease</th><th>Phone</th><th>Edit</th><th>Delete</th></tr>
+    {% for p in patients %}
+    <tr>
+      <td>{{ p[0] }}</td><td>{{ p[1] }}</td><td>{{ p[2] }}</td><td>{{ p[3] }}</td><td>{{ p[6] }}</td><td>{{ p[5] }}</td>
+      <td><a class="btn-edit" href="/edit_patient/{{ p[0] }}">Edit</a></td>
+      <td><a class="btn-delete" href="/delete_patient/{{ p[0] }}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+<script>function toggleMenu(){document.getElementById('sidebar').classList.toggle('active');document.getElementById('overlay').classList.toggle('active');}</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Doctor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="hamburger" onclick="toggleMenu()">☰</div>
+
+<div id="sidebar" class="sidebar">
+    <a href="/">Home</a>
+    <a href="/add_patient">Add Patient</a>
+    <a href="/view_patients">View Patients</a>
+    <a href="/add_doctor">Add Doctor</a>
+    <a href="/view_doctors">View Doctors</a>
+    <a href="/add_appointment">Add Appointment</a>
+    <a href="/view_appointments">View Appointments</a>
+</div>
+
+<div id="overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+<header class="header">
+    <div class="header-text">
+        <h1>{{ page_title }}</h1>
+        <p>{{ page_subtitle }}</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <form action="/update_doctor" method="POST">
+
+        <input type="hidden" name="id" value="{{ doctor[0] }}">
+
+        <input type="text" name="name" value="{{ doctor[1] }}" placeholder="Doctor Name" required>
+
+        <input type="text" name="specialization" value="{{ doctor[2] }}" placeholder="Specialization" required>
+
+        <input type="text" name="phone" value="{{ doctor[3] }}" placeholder="Phone Number" required>
+
+        <input type="number" name="salary" value="{{ doctor[4] }}" placeholder="Salary" required>
+
+        <button type="submit">Update Doctor</button>
+
+    </form>
+
+</div>
+
+<script>
+function toggleMenu(){
+    const sb = document.getElementById("sidebar");
+    const ov = document.getElementById("overlay");
+    sb.classList.toggle("active");
+    ov.classList.toggle("active");
+}
+</script>
+
+</body>
+</html>

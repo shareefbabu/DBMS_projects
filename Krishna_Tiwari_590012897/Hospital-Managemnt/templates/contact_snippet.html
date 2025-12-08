@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/add_patient">Add Patient</a>
+    <a href="/add_doctor">Add Doctor</a>
+    <a href="/add_appointment">Add Appointment</a>
+    <a href="/view_patients">View Patients</a>
+    <a href="/view_doctors">View Doctors</a>
+    <a href="/view_appointments">View Appointments</a>
+    <a href="/contact">Contact Us</a>
+</div>
+
+<header class="header">
+    <div class="header-text">
+        <h1>{{ page_title }}</h1>
+        <p>{{ page_subtitle }}</p>
+    </div>
+</header>
+
+<div class="container">
+
+<form action="/send_message" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <textarea name="message" placeholder="Write your message..." required></textarea>
+
+    <button type="submit">Send Message</button>
+</form>
+
+</div>
+
+</body>
+</html>

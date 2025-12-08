@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - Hospital Management</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- Floating Hamburger -->
+<div class="hamburger" onclick="toggleMenu()">☰</div>
+
+<!-- Sidebar Navigation -->
+<div id="sidebar" class="sidebar">
+    <a href="/">Home</a>
+    <a href="/add_patient">Add Patient</a>
+    <a href="/view_patients">View Patients</a>
+    <a href="/add_doctor">Add Doctor</a>
+    <a href="/view_doctors">View Doctors</a>
+    <a href="/add_appointment">Add Appointment</a>
+    <a href="/view_appointments">View Appointments</a>
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-text">
+        <h1>{{ page_title }}</h1>
+        <p>{{ page_subtitle }}</p>
+    </div>
+</header>
+
+<!-- Main Container -->
+<div class="container">
+
+    <!-- Photo Slider -->
+    <div class="photo-slider" aria-label="Hospital photo slider">
+        <button class="ps-btn ps-prev" aria-label="Previous image">‹</button>
+
+        <div class="ps-track">
+            <div class="ps-slide"><img src="/static/images/img1.jpeg" alt="Hospital"></div>
+            <div class="ps-slide"><img src="/static/images/img2.jpeg" alt="Doctor"></div>
+            <div class="ps-slide"><img src="/static/images/img3.jpeg" alt="Medical"></div>
+            <div class="ps-slide"><img src="/static/images/img4.jpeg" alt="Clinic"></div>
+        </div>
+
+        <button class="ps-btn ps-next" aria-label="Next image">›</button>
+
+        <div class="ps-dots"></div>
+    </div>
+
+</div>
+
+<!-- Footer Contact Section -->
+<footer class="footer-contact">
+    <div class="content">
+
+        <div class="left">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need support, send us a message.</p>
+        </div>
+
+        <div class="right">
+            <form class="contact-footer-form" action="/send_message" method="POST">
+                <input name="name" type="text" placeholder="Your name" required>
+                <input name="email" type="email" placeholder="Email address" required>
+                <textarea name="message" placeholder="Your message..." required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+    </div>
+
+    <p class="footer-note">© 2025 Hospital Management System</p>
+</footer>
+
+<!-- Scripts -->
+<script>
+/* Sidebar toggle */
+function toggleMenu() {
+    const sb = document.getElementById("sidebar");
+    const ov = document.getElementById("overlay");
+    sb.classList.toggle("active");
+    ov.classList.toggle("active");
+}
+
+/* AUTO SLIDING IMAGE SLIDER */
+(function(){
+    const track = document.querySelector('.ps-track');
+    const slides = Array.from(document.querySelectorAll('.ps-slide'));
+    const prev = document.querySelector('.ps-prev');
+    const next = document.querySelector('.ps-next');
+    const dotsContainer = document.querySelector('.ps-dots');
+
+    if (!track || slides.length === 0) return;
+
+    let index = 0;
+    const total = slides.length;
+
+    // Wrapper formatting
+    const wrapper = document.createElement("div");
+    wrapper.style.whiteSpace = "nowrap";
+    wrapper.style.transition = "transform 0.6s cubic-bezier(.2,.9,.3,1)";
+    wrapper.style.display = "inline-block";
+    wrapper.style.width = (100 * total) + "%";
+
+    slides.forEach(sl => {
+        sl.style.display = "inline-block";
+        sl.style.width = (100 / total) + "%";
+        wrapper.appendChild(sl);
+    });
+
+    track.innerHTML = "";
+    track.appendChild(wrapper);
+
+    // Create dots
+    for (let i = 0; i < total; i++) {
+        const d = document.createElement("button");
+        d.className = "ps-dot";
+        d.addEventListener("click", () => goTo(i));
+        dotsContainer.appendChild(d);
+    }
+    const dots = Array.from(dotsContainer.querySelectorAll(".ps-dot"));
+
+    function update() {
+        const percent = -(100 / total) * index;
+        wrapper.style.transform = "translateX(" + percent + "%)";
+        dots.forEach((d, i) => d.classList.toggle("active", i === index));
+    }
+
+    function goTo(i) {
+        index = (i + total) % total;
+        update();
+    }
+
+    prev.addEventListener("click", () => goTo(index - 1));
+    next.addEventListener("click", () => goTo(index + 1));
+
+    document.addEventListener("keydown", e => {
+        if (e.key === "ArrowLeft") goTo(index - 1);
+        if (e.key === "ArrowRight") goTo(index + 1);
+    });
+
+    goTo(0);
+
+    // AUTOPLAY EVERY 4 SECONDS
+    let autoSlide = setInterval(() => {
+        goTo(index + 1);
+    }, 4000);
+
+    // Pause autoplay on hover
+    wrapper.addEventListener("mouseenter", () => clearInterval(autoSlide));
+    wrapper.addEventListener("mouseleave", () => {
+        autoSlide = setInterval(() => goTo(index + 1), 4000);
+    });
+
+})();
+</script>
+
+</body>
+</html>

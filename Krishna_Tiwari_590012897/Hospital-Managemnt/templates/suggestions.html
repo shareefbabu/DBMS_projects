@@ -1,0 +1,33 @@
+<div class="suggest-box">
+    <h3>You may also want to visit:</h3>
+    <ul>
+
+        {% if current_page != 'add_patient' %}
+            <li><a href="/add_patient">Add Patient</a></li>
+        {% endif %}
+
+        {% if current_page != 'patients' %}
+            <li><a href="/view_patients">View Patients</a></li>
+        {% endif %}
+
+        {% if current_page != 'add_doctor' %}
+            <li><a href="/add_doctor">Add Doctor</a></li>
+        {% endif %}
+
+        {% if current_page != 'doctors' %}
+            <li><a href="/view_doctors">View Doctors</a></li>
+        {% endif %}
+
+        {% if current_page != 'add_appointment' %}
+            <li><a href="/add_appointment">Add Appointment</a></li>
+        {% endif %}
+
+        {% if current_page != 'appointments' %}
+            <li><a href="/view_appointments">View Appointments</a></li>
+        {% endif %}
+
+        {% if current_page != 'contact' %}
+            <li><a href="/contact">Contact Us</a></li>
+        {% endif %}
+    </ul>
+</div>

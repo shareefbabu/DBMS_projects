@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Patient</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="hamburger" onclick="toggleMenu()">☰</div>
+<div id="sidebar" class="sidebar">
+  <a href="/">Home</a><a href="/add_patient">Add Patient</a><a href="/view_patients">View Patients</a>
+  <a href="/add_doctor">Add Doctor</a><a href="/view_doctors">View Doctors</a><a href="/add_appointment">Add Appointment</a>
+  <a href="/view_appointments">View Appointments</a>
+</div>
+<div id="overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+
+<header class="header"><div class="header-text"><h1>{{ page_title }}</h1><p>{{ page_subtitle }}</p></div></header>
+
+<div class="container">
+  <form action="/save_patient" method="POST">
+    <input name="name" type="text" placeholder="Patient Name" required>
+    <input name="age" type="number" placeholder="Age" required>
+    <select name="gender"><option>Male</option><option>Female</option><option>Other</option></select>
+    <input name="address" type="text" placeholder="Address" required>
+    <input name="phone" type="text" placeholder="Phone Number" required>
+    <input name="disease" type="text" placeholder="Disease" required>
+    <button type="submit">Add Patient</button>
+  </form>
+</div>
+
+<script>function toggleMenu(){document.getElementById('sidebar').classList.toggle('active');document.getElementById('overlay').classList.toggle('active');}</script>
+</body>
+</html>
