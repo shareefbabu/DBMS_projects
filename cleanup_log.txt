@@ -1,0 +1,19 @@
+Timestamp,Action,Details
+2025-12-05 19:33:21,BACKUP,Created backup at d:\GIANDEEP MAIN\College Notes and notices\Sem 3\DBMS\DBMS_PROJECT_BACKUP_20251205_193321
+2025-12-05 19:34:00,DELETE,Removed directory: __pycache__
+2025-12-05 19:34:00,DELETE,Removed directory: data/backup
+2025-12-05 19:34:00,DELETE,Removed directory: data/reports
+2025-12-05 19:34:00,DELETE,Removed file: read_pdf_content.py
+2025-12-05 19:34:00,DELETE,Removed file: pdf_content.txt
+2025-12-05 19:34:00,DELETE,Removed file: create_shortcut.vbs
+2025-12-05 19:34:00,DELETE,Removed file: .gitignore
+2025-12-05 19:34:00,DELETE,Removed file: QUICK_START.html (Duplicate)
+2025-12-05 19:34:00,DELETE,Removed file: START_SKYBOOK.bat (Redundant)
+2025-12-05 19:34:00,DELETE,Removed file: fixed_queries.sql
+2025-12-05 19:34:00,DELETE,Removed file: update_users_table.sql
+2025-12-05 19:34:00,DELETE,Removed file: clear_users_table.sql
+2025-12-05 19:35:00,VERIFICATION,Confirmed essential files exist and are operational
+2025-12-05 19:42:00,DELETE,"Removed report script: generate_report.py (7386 bytes)"
+2025-12-05 19:42:00,DELETE,"Removed report script: create_skybook_report.py (10826 bytes)"
+2025-12-05 19:42:00,DELETE,"Removed report script: create_er_diagram.py (4057 bytes)"
+2025-12-05 19:45:00,RESTORE,"Restored DBMS_PROJECT.sql (8543 bytes) from fixed_queries.sql backup"
