@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Room Summary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Room Summary</h2>
+    <p class="lead">View room capacity, occupancy and vacancies</p>
+
+    <table class="table" id="roomTable">
+        <thead>
+            <tr>
+                <th>Room No</th>
+                <th>Capacity</th>
+                <th>Occupied</th>
+                <th>Vacancy</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <a href="admin_dashboard.html">Back</a>
+</div>
+
+<script>
+fetch("http://127.0.0.1:5000/get_rooms")
+  .then(r => r.json())
+  .then(data => {
+      const tbody = document.querySelector("#roomTable tbody");
+      data.forEach(r => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+              <td>${r.room_no}</td>
+              <td>${r.capacity}</td>
+              <td>${r.occupied}</td>
+              <td>${r.vacancy}</td>
+          `;
+          tbody.appendChild(tr);
+      });
+  });
+</script>
+
+</body>
+</html>

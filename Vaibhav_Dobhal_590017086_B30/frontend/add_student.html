@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Add Student</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container-sm">
+    <h2>Add Student</h2>
+    <p class="lead">Fill the form below to add a student</p>
+
+    <form action="http://127.0.0.1:5000/add_student" method="post">
+        <input class="input" name="name" placeholder="Full Name" required>
+        <input class="input" name="roll_no" placeholder="Roll Number" required>
+        <input class="input" name="contact" placeholder="Contact Number">
+        <input class="input" name="email" placeholder="Email Address">
+        <input class="input" name="room_no" placeholder="Room Number (optional)">
+        <button class="btn btn-primary" type="submit">Add Student</button>
+    </form>
+
+    <a href="admin_dashboard.html">Back to Dashboard</a>
+</div>
+
+</body>
+</html>

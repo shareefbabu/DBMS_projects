@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Complaint List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Complaints</h2>
+    <p class="lead">View all complaints submitted by students</p>
+
+    <table class="table" id="complaintTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Complaint</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <a href="admin_dashboard.html">Back</a>
+</div>
+
+<script>
+fetch("http://127.0.0.1:5000/get_complaints")
+  .then(res => res.json())
+  .then(data => {
+      const tbody = document.querySelector("#complaintTable tbody");
+
+      data.forEach(c => {
+          const tr = document.createElement("tr");
+
+          let statusBadge = `<span class="badge pending">${c.status}</span>`;
+          if (c.status === "Resolved") statusBadge = `<span class="badge resolved">${c.status}</span>`;
+
+          tr.innerHTML = `
+              <td>${c.complaint_id}</td>
+              <td>${c.name}</td>
+              <td>${c.roll_no}</td>
+              <td>${c.complaint_text}</td>
+              <td>${statusBadge}</td>
+          `;
+          tbody.appendChild(tr);
+      });
+  });
+</script>
+
+</body>
+</html>
