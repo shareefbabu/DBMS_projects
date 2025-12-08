@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="animate__animated animate__slideInUp">
+  <h3>New Adoption Application</h3>
+  <form method="post" class="row g-3">
+    <div class="col-md-6"><label class="form-label">Pet</label><select name="pet_id" class="form-select">{% for p in pets %}<option value="{{ p.pet_id }}">{{ p.name }} ({{ p.species }})</option>{% endfor %}</select></div>
+    <div class="col-md-6"><label class="form-label">Adopter</label><select name="adopter_id" class="form-select">{% for a in adopters %}<option value="{{ a.adopter_id }}">{{ a.full_name }}</option>{% endfor %}</select></div>
+    <div class="col-md-6"><label class="form-label">Status</label><select name="status" class="form-select"><option>Pending</option><option>Approved</option><option>Rejected</option></select></div>
+    <div class="col-12"><label class="form-label">Notes</label><textarea name="notes" class="form-control"></textarea></div>
+    <div class="col-12"><button class="btn btn-primary">Save</button> <a class="btn btn-secondary" href="{{ url_for('apps_list') }}">Cancel</a></div>
+  </form>
+</div>
+{% endblock %}

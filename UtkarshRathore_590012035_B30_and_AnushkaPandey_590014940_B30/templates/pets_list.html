@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h3 class="mb-0">Pets</h3>
+    <small class="text-muted">Recently joined (30d): {{ recent_joined }}</small>
+  </div>
+  <div>
+    <a class="btn btn-sm btn-outline-light me-2" href="{{ url_for('pets_new') }}">+ Add Pet</a>
+  </div>
+</div>
+
+<form class="mb-3 row" method="get">
+  <div class="col-md-6">
+    <input name="q" value="{{ q }}" class="form-control" placeholder="Search by name, species, breed">
+  </div>
+
+  <div class="col-md-4">
+    {% for s in species_summary %}
+      <a class="btn btn-outline-secondary btn-sm me-1 mb-1"
+         href="{{ url_for('pets_list', species=s.species) }}">
+        {{ s.species }} ({{ s.total }})
+      </a>
+    {% endfor %}
+    <a class="btn btn-outline-info btn-sm ms-2" href="{{ url_for('pets_list') }}">Show all</a>
+  </div>
+
+  <div class="col-md-2 text-end">
+    <button class="btn btn-primary">Search</button>
+  </div>
+</form>
+
+<div class="table-responsive animate__animated animate__fadeIn">
+  <table class="table table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Species</th>
+        <th>Breed</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Status</th>
+        <th>Arrival</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for p in pets %}
+      <tr>
+        <td>{{ p.pet_id }}</td>
+
+        <td title="{{ p.description or '' }}">
+          {{ p.name }}
+        </td>
+
+        <td>{{ p.species }}</td>
+        <td>{{ p.breed or '' }}</td>
+        <td>{{ p.age or '' }}</td>
+        <td>{{ p.gender or '' }}</td>
+
+        <td>
+          {% if p.status == 'Available' %}
+            <span class="badge badge-status badge-pending">Available</span>
+          {% else %}
+            <span class="badge badge-status badge-approved">{{ p.status }}</span>
+          {% endif %}
+        </td>
+
+        <td>{{ p.arrival_date or '' }}</td>
+
+        <td>
+          <form method="post"
+                action="{{ url_for('pets_delete', pet_id=p.pet_id) }}"
+                onsubmit="return confirm('Delete this pet?')">
+            <button class="btn btn-sm btn-outline-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

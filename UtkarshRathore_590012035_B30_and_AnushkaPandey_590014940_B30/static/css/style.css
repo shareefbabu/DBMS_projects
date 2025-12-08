@@ -1,0 +1,11 @@
+body { background: linear-gradient(180deg,#f6f8fb,#ffffff); font-family: Inter, system-ui, Arial; }
+.navbar-dark { background: #0b2545 !important; }
+.card-ghost { background: rgba(255,255,255,0.95); border-radius:12px; box-shadow: 0 6px 18px rgba(9,30,66,0.08); padding:18px; }
+.stat-title { text-transform: lowercase; color:#333; }
+.stat-value { font-size:2.5rem; font-weight:700; }
+.badge-status { padding:6px 10px; border-radius:8px; font-weight:600; }
+.badge-pending { background:#ffecb3; color:#8a6d00; }
+.badge-approved { background:#d4edda; color:#2f6f3a; }
+.badge-rejected { background:#f8d7da; color:#7a1f24; }
+footer { padding:30px 0; text-align:center; color:#666; margin-top:40px; }
+.hero { border-radius:12px; overflow:hidden; box-shadow:0 8px 30px rgba(2,6,23,0.08); }
