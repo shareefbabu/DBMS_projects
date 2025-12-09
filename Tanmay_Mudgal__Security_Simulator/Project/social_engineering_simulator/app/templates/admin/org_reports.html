@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}Reports - {{ current_user.organization }} | SE Simulator{% endblock %}
+
+{% block content %}
+<style>
+    .reports-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #334155;
+    }
+
+    .report-card {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+
+    .data-table th {
+        text-align: left;
+        padding: 1rem;
+        color: #f1f5f9;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background: #0f172a;
+        border-bottom: 2px solid #475569;
+    }
+
+    .data-table td {
+        padding: 1rem;
+        border-bottom: 1px solid #334155;
+        color: #e2e8f0;
+    }
+
+    .data-table tr:hover td {
+        background: #2d3748;
+    }
+
+    .status-badge {
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .status-safe {
+        background: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+    }
+
+    .status-cautious {
+        background: rgba(245, 158, 11, 0.1);
+        color: #f59e0b;
+    }
+
+    .status-risky {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+    }
+
+    .action-bar {
+        margin-bottom: 1rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn-export {
+        background: #3b82f6;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-export:hover {
+        background: #2563eb;
+    }
+
+    @media print {
+
+        .navbar,
+        .footer,
+        .action-bar {
+            display: none;
+        }
+
+        body,
+        .container {
+            background: white !important;
+            color: black !important;
+        }
+
+        .report-card {
+            border: none;
+            box-shadow: none;
+        }
+
+        .data-table th,
+        .data-table td {
+            border-color: #ddd;
+            color: black;
+        }
+    }
+</style>
+
+<div class="container" style="padding: 2rem;">
+    <div class="reports-header">
+        <div>
+            <h1 style="font-size: 1.8rem; font-weight: 700;">Security Report</h1>
+            <p style="color: #94a3b8;">{{ current_user.organization }} • Generated on {{ now_date }}</p>
+        </div>
+        <div class="action-bar">
+            <button onclick="window.print()" class="btn-export">
+                🖨️ Print / Save PDF
+            </button>
+            <button onclick="exportCSV()" class="btn-export" style="background: #10b981;">
+                📊 Export CSV
+            </button>
+        </div>
+    </div>
+
+    <!-- Summary Metrics -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+        <div class="report-card" style="text-align: center; padding: 1rem;">
+            <div style="color: #94a3b8; font-size: 0.85rem; text-transform: uppercase;">Total Users</div>
+            <div style="font-size: 2rem; font-weight: 700; color: #f3f4f6;">{{ org_users|length }}</div>
+        </div>
+        <div class="report-card" style="text-align: center; padding: 1rem;">
+            <!-- Placeholder logic for simple stats in template -->
+            {% set risky_users = [] %}
+            {% for u in org_users %}
+            {% if u.vulnerability_level == 'High' or u.total_score < 50 %}{% set _=risky_users.append(u) %}{% endif %}
+                {% endfor %} <div style="color: #94a3b8; font-size: 0.85rem; text-transform: uppercase;">At-Risk Users
+        </div>
+        <div style="font-size: 2rem; font-weight: 700; color: #ef4444;">{{ risky_users|length }}</div>
+    </div>
+    <div class="report-card" style="text-align: center; padding: 1rem;">
+        {% set avg_score = 0 %}
+        {% if org_users %}
+        {% set total = namespace(value=0) %}
+        {% for u in org_users %}{% set total.value = total.value + u.total_score %}{% endfor %}
+        {% set avg_score = (total.value / org_users|length)|round(1) %}
+        {% endif %}
+        <div style="color: #94a3b8; font-size: 0.85rem; text-transform: uppercase;">Avg Org Score</div>
+        <div style="font-size: 2rem; font-weight: 700; color: #3b82f6;">{{ avg_score }}</div>
+    </div>
+</div>
+
+<div class="report-card" style="overflow-x: auto;">
+    <h3 style="margin-bottom: 1rem; color: #e2e8f0;">User Performance Details</h3>
+    <table class="data-table" id="reportTable">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Score</th>
+                <th>Vulnerability</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in org_users %}
+            <tr>
+                <td style="font-weight: 500;">{{ user.username }}</td>
+                <td>{{ user.email or 'N/A' }}</td>
+                <td>{{ user.role.role_name|replace('_', ' ')|title if user.role else 'User' }}</td>
+                <td>{{ user.total_score }}</td>
+                <td>{{ user.vulnerability_level or 'Unknown' }}</td>
+                <td>
+                    {% if user.vulnerability_level == 'High' %}
+                    <span class="status-badge status-risky">High Risk</span>
+                    {% elif user.vulnerability_level == 'Medium' %}
+                    <span class="status-badge status-cautious">Needs Attention</span>
+                    {% else %}
+                    <span class="status-badge status-safe">Secure</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 2rem; color: #94a3b8;">No users found in this
+                    organization.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+<script>
+    function exportCSV() {
+        let csv = [];
+        let rows = document.querySelectorAll("table tr");
+
+        for (let i = 0; i < rows.length; i++) {
+            let row = [], cols = rows[i].querySelectorAll("td, th");
+
+            for (let j = 0; j < cols.length; j++)
+                row.push(cols[j].innerText);
+
+            csv.push(row.join(","));
+        }
+
+        downloadCSV(csv.join("\n"), "security_report.csv");
+    }
+
+    function downloadCSV(csv, filename) {
+        let csvFile;
+        let downloadLink;
+
+        csvFile = new Blob([csv], { type: "text/csv" });
+        downloadLink = document.createElement("a");
+        downloadLink.download = filename;
+        downloadLink.href = window.URL.createObjectURL(csvFile);
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+    }
+</script>
+{% endblock %}

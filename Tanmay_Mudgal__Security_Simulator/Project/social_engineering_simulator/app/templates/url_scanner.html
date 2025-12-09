@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}URL Scanner - SE Simulator{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-dark text-light border-0 shadow-lg"
+                style="background-color: var(--bg-card) !important; border: 1px solid var(--border-subtle) !important;">
+                <div class="card-header border-0 pb-0">
+                    <h2 class="card-title text-center mb-0" style="color: var(--accent-cyan); font-weight: 700;">
+                        <span style="font-size: 2rem;">🔍</span> URL / Phishing Scanner
+                    </h2>
+                    <p class="text-center text-white mt-2">Analyze URLs for potential threats, phishing attempts, and
+                        malware.</p>
+                </div>
+
+                <div class="card-body">
+                    <form method="POST" id="scan-form" class="mt-4">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <div class="form-group position-relative">
+                            <label for="url_input" class="form-label text-info">Enter Website URL</label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-dark border-secondary text-light">https://</span>
+                                <input type="text" class="form-control bg-dark text-light border-secondary"
+                                    id="url_input" name="url" placeholder="example.com" required
+                                    style="border-radius: 0 0.5rem 0.5rem 0;">
+                            </div>
+                            <div class="form-text text-white">We'll check this URL against global threat intelligence
+                                databases.</div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg shine-effect"
+                                style="background: linear-gradient(45deg, var(--accent-cyan), var(--accent-purple)); border: none;">
+                                <span class="spinner-border spinner-border-sm d-none me-2" role="status"
+                                    aria-hidden="true"></span>
+                                Scan URL Now
+                            </button>
+                        </div>
+                    </form>
+
+                    {% if result %}
+                    <div class="scan-result mt-5 p-4 rounded-3 animate__animated animate__fadeIn"
+                        style="background: rgba(0,0,0,0.2); border: 2px solid {% if result.status == 'warning' %}var(--accent-orange){% elif result.safe %}var(--accent-green){% else %}var(--accent-red){% endif %};">
+
+                        <div class="text-center mb-3">
+                            <div style="font-size: 4rem;">
+                                {% if result.status == 'warning' %}
+                                ⚠️
+                                {% elif result.safe %}
+                                ✅
+                                {% else %}
+                                ⛔
+                                {% endif %}
+                            </div>
+                            <h3 class="mt-2"
+                                style="color: {% if result.status == 'warning' %}var(--accent-orange){% elif result.safe %}var(--accent-green){% else %}var(--accent-red){% endif %};">
+                                {{ result.message }}
+                            </h3>
+                        </div>
+
+                        <div class="result-details text-center">
+                            <p class="mb-1 text-light">{{ result.details }}</p>
+                            <p class="text-white small">Scanned URL: {{ scanned_url }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Educative Tip -->
+            <div class="alert alert-info mt-4 d-flex align-items-center" role="alert"
+                style="background: rgba(14, 165, 233, 0.1); border-color: var(--accent-cyan);">
+                <i class="fas fa-info-circle me-3" style="font-size: 1.25rem;"></i>
+                <div>
+                    <strong>Security Tip:</strong> Even if a scanner says a URL is "Clean", always verify the domain
+                    manually.
+                    Attackers often register new domains that scanners haven't caught yet.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('scan-form').addEventListener('submit', function (e) {
+        const btn = this.querySelector('button[type="submit"]');
+        const spinner = btn.querySelector('.spinner-border');
+        btn.disabled = true;
+        spinner.classList.remove('d-none');
+        btn.childNodes[2].textContent = ' Scanning...';
+    });
+</script>
+
+<style>
+    /* Custom simple styling for this page */
+    .form-control:focus {
+        background-color: #0f172a;
+        color: white;
+        border-color: var(--accent-cyan);
+        box-shadow: 0 0 0 0.25rem rgba(14, 165, 233, 0.25);
+    }
+</style>
+{% endblock %}
