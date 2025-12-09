@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Allocate Room</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container-sm">
+    <h2>Allocate Room</h2>
+    <p class="lead">Assign a room to a student using roll number</p>
+
+    <form action="http://127.0.0.1:5000/allocate_room" method="post">
+        <input class="input" name="roll_no" placeholder="Roll Number" required>
+        <input class="input" name="room_no" placeholder="Room Number" required>
+        <button class="btn btn-primary" type="submit">Allocate</button>
+    </form>
+
+    <a href="admin_dashboard.html">Back</a>
+</div>
+
+</body>
+</html>

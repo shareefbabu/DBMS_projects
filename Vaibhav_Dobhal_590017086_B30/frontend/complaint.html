@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Submit Complaint</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container-sm">
+    <h2>Submit Complaint</h2>
+    <p class="lead">Enter the student's roll number and complaint</p>
+
+    <form action="http://127.0.0.1:5000/submit_complaint" method="post">
+        <input class="input" name="roll_no" placeholder="Roll Number" required>
+        <textarea class="input" name="complaint_text" placeholder="Complaint details..." rows="4" required></textarea>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+    <a href="admin_dashboard.html">Back</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Record Mess Attendance</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container-sm">
+    <h2>Mess Attendance</h2>
+    <p class="lead">Mark mess attendance for any student</p>
+
+    <form action="http://127.0.0.1:5000/record_attendance" method="post">
+        <input class="input" name="roll_no" placeholder="Roll Number" required>
+        <input class="input" type="date" name="date" required>
+        <select class="input" name="status" required>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Mark Attendance</button>
+    </form>
+
+    <a href="admin_dashboard.html">Back</a>
+</div>
+
+</body>
+</html>

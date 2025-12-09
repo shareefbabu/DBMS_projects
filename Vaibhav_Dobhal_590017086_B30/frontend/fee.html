@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Fee Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container-sm">
+    <h2>Fee Management</h2>
+    <p class="lead">Update hostel & mess fee for any student</p>
+
+    <form action="http://127.0.0.1:5000/fee_update" method="post">
+        <input class="input" name="roll_no" placeholder="Roll Number" required>
+        <input class="input" type="number" name="hostel_fee" placeholder="Hostel Fee" required>
+        <input class="input" type="number" name="mess_fee" placeholder="Mess Fee" required>
+        <button class="btn btn-primary" type="submit">Save Fee</button>
+    </form>
+
+    <a href="admin_dashboard.html">Back</a>
+</div>
+
+</body>
+</html>
