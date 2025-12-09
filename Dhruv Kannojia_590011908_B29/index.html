@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Waste Sorting System | Interactive Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* CSS styles for charts and responsiveness */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .log-window::-webkit-scrollbar {
+            width: 8px;
+        }
+        .log-window::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .log-window::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .log-window::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .arch-node {
+            transition: all 0.3s ease;
+        }
+        .arch-node:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .active-node {
+            border-color: #10b981;
+            background-color: #ecfdf5;
+        }
+        .log-line {
+            white-space: pre-wrap;
+            margin: 0;
+            padding: 2px 0;
+            border-bottom: 1px dotted #1e293b;
+        }
+        .log-line:last-child {
+            border-bottom: none;
+        }
+    </style>
+    <!-- Chosen Palette: Emerald (Green) & Slate (Grey/Blue) for an Eco-Tech feel -->
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed">
+
+    <!-- Application Structure Plan: 1. Header: Project Title and Executive Summary. 2. System Architecture Interactive Map: A clickable flow diagram explaining the 5 components (MySQL, AI, Python, File System). 3. AI & Data Metrics Dashboard: Visualizing the "Weights" of components and simulated model training results (Accuracy). 4. DBMS Analytics Hub: The core value proposition. Interactive charts showing Waste Frequency and Confidence Analysis. 5. Live Operations Simulator: A scrolling log window showing the Python script "running" and logging to MySQL in real-time. 6. Interactive Sorter Input: New section allowing user to upload files (simulated). This structure translates the static report into a functional "Control Center" view, allowing the user to understand the system by "monitoring" it. -->
+    <!-- Visualization & Content Choices: Summary: Report Info -> Goal -> Viz/Presentation Method -> Interaction -> Justification -> Library/Method - Confirmed NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation / Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center text-white text-xl font-bold">♻️</div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-800">EcoSort AI</h1>
+                    <p class="text-xs text-slate-500">Intelligent Waste Management System</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-600">
+                <a href="#architecture" class="hover:text-emerald-600 transition">Architecture</a>
+                <a href="#ai-metrics" class="hover:text-emerald-600 transition">AI Performance</a>
+                <a href="#dbms-analytics" class="hover:text-emerald-600 transition">DBMS Analytics</a>
+                <a href="#live-ops" class="hover:text-emerald-600 transition">Live Operations</a>
+                <a href="#input-panel" class="hover:text-emerald-600 transition">Input Sorter</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Executive Summary Section -->
+    <section class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">Autonomous Waste Classification & Analytics</h2>
+            <p class="text-lg text-slate-600 mb-8">
+                This system bridges the gap between <strong>Deep Learning (AI)</strong> and <strong>Relational Database Management (DBMS)</strong>. 
+                It automates the physical sorting of waste into 10 categories while simultaneously generating a permanent, queryable audit trail in MySQL for operational intelligence.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center space-x-3">
+                    <span class="text-2xl">🧠</span>
+                    <div class="text-left">
+                        <p class="text-xs text-slate-500 uppercase font-semibold">AI Model</p>
+                        <p class="font-bold text-slate-800">CNN / TensorFlow</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center space-x-3">
+                    <span class="text-2xl">🗄️</span>
+                    <div class="text-left">
+                        <p class="text-xs text-slate-500 uppercase font-semibold">Backend DBMS</p>
+                        <p class="font-bold text-slate-800">MySQL 8.0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center space-x-3">
+                    <span class="text-2xl">📊</span>
+                    <div class="text-left">
+                        <p class="text-xs text-slate-500 uppercase font-semibold">Accuracy</p>
+                        <p class="font-bold text-emerald-600">~88.7%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Architecture Diagram -->
+    <section id="architecture" class="bg-slate-50 py-16 border-t border-slate-200">
+        <div class="container mx-auto px-4">
+            <div class="mb-10 text-center">
+                <h3 class="text-2xl font-bold text-slate-900">System Architecture & Data Flow</h3>
+                <p class="text-slate-600 mt-2 max-w-2xl mx-auto">
+                    The system operates as a pipeline. Click on any component below to see its specific role, technology stack, and contribution to the project.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-12 gap-8 items-start">
+                <!-- Diagram Visualizer -->
+                <div class="md:col-span-7 bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <!-- Flow Layout -->
+                    <div class="flex flex-col space-y-6 relative">
+                        <!-- Input -->
+                        <div onclick="showDetail('filesystem')" class="arch-node cursor-pointer border-2 border-slate-200 rounded-xl p-4 flex items-center space-x-4 bg-slate-50 hover:border-emerald-400">
+                            <div class="bg-amber-100 text-amber-600 p-2 rounded-lg">📂</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">1. File System Input</h4>
+                                <p class="text-xs text-slate-500">Unsorted Images Folder</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Arrow Down -->
+                        <div class="flex justify-center text-slate-300 text-xl">⬇️</div>
+
+                        <!-- Processing Layer -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div onclick="showDetail('python_glue')" class="arch-node cursor-pointer border-2 border-slate-200 rounded-xl p-4 bg-blue-50 hover:border-blue-400">
+                                <div class="bg-blue-100 text-blue-600 p-2 rounded-lg w-fit mb-2">🐍</div>
+                                <h4 class="font-bold text-slate-800">2. Integration Code</h4>
+                                <p class="text-xs text-slate-500">Python Script (Controller)</p>
+                            </div>
+                            <div onclick="showDetail('ai_model')" class="arch-node cursor-pointer border-2 border-slate-200 rounded-xl p-4 bg-purple-50 hover:border-purple-400">
+                                <div class="bg-purple-100 text-purple-600 p-2 rounded-lg w-fit mb-2">🧠</div>
+                                <h4 class="font-bold text-slate-800">3. AI Classifier</h4>
+                                <p class="text-xs text-slate-500">TensorFlow CNN</p>
+                            </div>
+                        </div>
+
+                        <!-- Arrow Down -->
+                        <div class="flex justify-center text-slate-300 text-xl">⬇️</div>
+
+                        <!-- Storage & Output -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div onclick="showDetail('dbms')" class="arch-node cursor-pointer border-2 border-emerald-500 bg-emerald-50 rounded-xl p-4 shadow-md">
+                                <div class="bg-emerald-100 text-emerald-600 p-2 rounded-lg w-fit mb-2">🗄️</div>
+                                <h4 class="font-bold text-slate-800">4. DBMS (MySQL)</h4>
+                                <p class="text-xs text-slate-500">Central Logging & Analytics</p>
+                            </div>
+                            <div onclick="showDetail('output')" class="arch-node cursor-pointer border-2 border-slate-200 rounded-xl p-4 bg-slate-50 hover:border-emerald-400">
+                                <div class="bg-green-100 text-green-600 p-2 rounded-lg w-fit mb-2">✅</div>
+                                <h4 class="font-bold text-slate-800">5. Sorted Output</h4>
+                                <p class="text-xs text-slate-500">Categorized Folders</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Panel -->
+                <div class="md:col-span-5">
+                    <div id="detail-card" class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 h-full transition-all duration-300">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span id="detail-icon" class="text-3xl">🗄️</span>
+                            <h3 id="detail-title" class="text-xl font-bold text-slate-800">MySQL (DBMS) Component</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Role</h5>
+                                <p id="detail-role" class="text-slate-700 text-sm">Central repository for all operational metrics, audit logs, and reporting.</p>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Key Technologies</h5>
+                                <p id="detail-tech" class="text-slate-700 text-sm font-mono bg-slate-100 p-2 rounded">MySQL Server, SQL Command Line, mysql.connector</p>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Project Impact (Weight)</h5>
+                                <div class="flex items-center space-x-2 mt-1">
+                                    <div class="w-full bg-slate-200 rounded-full h-2.5">
+                                        <div id="detail-bar" class="bg-emerald-500 h-2.5 rounded-full" style="width: 45%"></div>
+                                    </div>
+                                    <span id="detail-percent" class="text-xs font-bold text-slate-600">45%</span>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 mt-4">
+                                <h5 class="text-xs font-bold text-slate-500 mb-2">Key Functionality:</h5>
+                                <p id="detail-desc" class="text-sm text-slate-600">
+                                    Stores the <code>SORTING_LOGS</code> table. Every time the AI classifies an image, an INSERT statement logs the filename, prediction, confidence score, and timestamp. This creates a permanent audit trail.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI & Project Weights Section -->
+    <section id="ai-metrics" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Project Composition & AI Model</h3>
+                    <p class="text-slate-600 mb-6">
+                        While the DBMS is the analytical backbone (45%), the AI component (35%) performs the heavy cognitive lifting. 
+                        The system uses a Convolutional Neural Network (CNN) trained on <strong>5,927 images</strong> split into training (70%) and validation (30%) sets.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                            <span class="text-sm font-medium text-slate-700">Training Images</span>
+                            <span class="font-mono text-emerald-600">~4,149 (70%)</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                            <span class="text-sm font-medium text-slate-700">Validation Images</span>
+                            <span class="font-mono text-blue-600">~1,778 (30%)</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                            <span class="text-sm font-medium text-slate-700">Target Categories</span>
+                            <span class="font-mono text-purple-600">10 Types</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart: Component Breakdown -->
+                <div>
+                    <div class="bg-slate-50 p-6 rounded-2xl shadow-sm border border-slate-100">
+                        <h4 class="text-center text-sm font-bold text-slate-500 mb-4 uppercase">Project Component Weight Distribution</h4>
+                        <!-- Chart Container -->
+                        <div class="chart-container">
+                            <canvas id="weightChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DBMS Analytics Hub (The Core Subject) -->
+    <section id="dbms-analytics" class="py-16 bg-slate-50 border-y border-slate-200">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h3 class="text-2xl font-bold text-slate-900">DBMS Analytics Hub</h3>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    This section demonstrates the power of the MySQL database. By running SQL queries on the <code>SORTING_LOGS</code> table, we derive actionable insights from raw classification data.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Chart 1: Waste Frequency -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="font-bold text-slate-800">Report 1: Waste Frequency</h4>
+                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-mono">SELECT COUNT(*) ... GROUP BY</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="frequencyChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4 text-center">Identifies the most common waste types to optimize recycling logistics.</p>
+                </div>
+
+                <!-- Chart 2: Confidence Analysis -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="font-bold text-slate-800">Report 2: Model Confidence Audit</h4>
+                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded font-mono">AVG(prediction_score)</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="confidenceChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4 text-center">Tracks AI certainty. Low confidence scores (&lt; 0.80) trigger manual review.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Sorter Input -->
+    <section id="input-panel" class="py-16 bg-white border-t border-slate-200">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Interactive Sorter Input</h3>
+            <p class="text-slate-600 mb-6 text-center max-w-2xl mx-auto">
+                **Crucial Step:** Select your mixed waste images here. This browser action sends the command to your local Python server (running on port 5000), which then executes the sorting script and moves the actual files on your hard drive.
+            </p>
+
+            <div class="max-w-xl mx-auto bg-slate-100 p-6 rounded-xl shadow-inner border border-slate-200">
+                <div class="bg-yellow-100 border border-yellow-400 text-yellow-800 p-3 rounded-lg mb-4 text-sm">
+                    ⚠️ **Server Check:** Ensure <code>server_bridge.py</code> is running in your terminal before clicking "Start Classification Run."
+                </div>
+
+                <label for="imageUpload" class="block text-sm font-medium text-slate-700 mb-2">1. Select Images (Required for File Count)</label>
+                <input type="file" id="imageUpload" multiple accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100"/>
+                
+                <div class="mt-4 p-3 bg-white rounded-lg border border-slate-300 h-24 overflow-y-auto">
+                    <p id="fileCount" class="text-sm text-slate-500">0 files selected.</p>
+                    <ul id="fileList" class="text-xs text-slate-700 space-y-1"></ul>
+                </div>
+
+                <button onclick="triggerLocalSortAndPoll()" id="startClassificationButton" disabled class="mt-6 w-full bg-red-600 hover:bg-red-500 disabled:bg-slate-400 text-white font-bold py-3 px-6 rounded-lg transition shadow-lg flex items-center justify-center">
+                    <span class="mr-2">▶️</span> Start Classification Run (Via Flask Server)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Operations Simulator -->
+    <section id="live-ops" class="py-16 bg-slate-900 text-slate-300">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12">
+                
+                <!-- Explanation -->
+                <div class="flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-white mb-4">Live Operations Monitor</h3>
+                    <p class="mb-6 leading-relaxed">
+                        This panel shows the **live logs** generated by the Python script as it performs classification, file movement, and DBMS insertion. This proves your complete, integrated data pipeline is running.
+                    </p>
+                    <ol class="space-y-4 list-decimal list-inside text-sm text-slate-400">
+                        <li class="pl-2"><strong class="text-purple-400">Browser:</strong> Sends command to Flask server (Port 5000).</li>
+                        <li class="pl-2"><strong class="text-blue-400">Server:</strong> Executes <code>python deploy_sorter.py</code>.</li>
+                        <li class="pl-2"><strong class="text-emerald-400">Monitor:</strong> Logs are streamed back here, including prediction score and errors.</li>
+                    </ol>
+                </div>
+
+                <!-- Terminal / Log Window -->
+                <div class="bg-black rounded-lg shadow-2xl overflow-hidden border border-slate-700 font-mono text-xs md:text-sm relative">
+                    <div class="bg-slate-800 px-4 py-2 flex items-center justify-between border-b border-slate-700">
+                        <span class="text-slate-400">Live Log Stream (<code>deploy\_sorter.py</code> output)</span>
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                    </div>
+                    <div id="console-output" class="log-window p-4 h-80 overflow-y-auto space-y-2 text-emerald-400">
+                        <div class="text-slate-500 mb-2">Awaiting connection signal from Flask server...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 text-center">
+        <p class="text-slate-500 text-sm">DBMS Project: AI-Powered Waste Sorting System</p>
+        <p class="text-slate-400 text-xs mt-2">Built with TensorFlow, MySQL, and Python</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let uploadedFiles = [];
+        let logPollingInterval;
+        
+        // --- API Configuration ---
+        const API_ENDPOINT_START = 'http://127.0.0.1:5000/api/start_sort'; 
+        const API_ENDPOINT_LOGS = 'http://127.0.0.1:5000/api/get_logs'; 
+        
+        // --- Component Detail Data (Unchanged) ---
+        const componentDetails = {
+            'filesystem': {
+                title: 'File System Input', role: 'Physical organization of raw data.', tech: 'Windows/Linux Folders', percent: 5, desc: 'The `UNSORTED_INPUT` folder acts as the entry point. Python\'s `os` library scans this directory to identify files waiting for classification.'
+            },
+            'python_glue': {
+                title: 'Integration Code', role: 'The logic layer connecting AI to DBMS.', tech: 'Python (shutil, mysql.connector)', percent: 15, desc: 'This is the "Glue". It creates database connections, handles exceptions, physically moves files using `shutil`, and executes the SQL INSERT commands.'
+            },
+            'ai_model': {
+                title: 'AI Classifier', role: 'Decision making intelligence.', tech: 'TensorFlow, Keras, CNN', percent: 35, desc: 'A Convolutional Neural Network (CNN) trained on 5,927 images. It takes a raw image matrix and outputs a probability array for 10 categories.'
+            },
+            'dbms': {
+                title: 'MySQL (DBMS)', role: 'Central repository & Audit Log.', tech: 'MySQL Server 8.0, SQL', percent: 45, desc: 'The core subject focus. Stores `SORTING_LOGS`. Allows for complex analytical queries (Frequency, Confidence Audits) that simple file logging cannot provide.'
+            },
+            'output': {
+                title: 'Sorted Output', role: 'Physical result of the system.', tech: 'Directory Structure', percent: 5, desc: 'The final destination. `OUTPUT_FOLDERS` contains sub-directories (Plastic, Metal, etc.) where files are moved based on AI predictions.'
+            }
+        };
+
+        // --- Chart Initialization (Unchanged) ---
+        function initCharts() {
+            // A. Project Weights (Doughnut)
+            const ctxWeight = document.getElementById('weightChart').getContext('2d');
+            new Chart(ctxWeight, { type: 'doughnut', data: { labels: ['MySQL (DBMS)', 'Python (AI/ML)', 'Python (Integration)', 'File System'], datasets: [{ data: [45, 35, 15, 5], backgroundColor: ['#10b981', '#6366f1', '#3b82f6', '#f59e0b'], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } } });
+
+            // B. Waste Frequency (Bar)
+            const ctxFreq = document.getElementById('frequencyChart').getContext('2d');
+            new Chart(ctxFreq, { type: 'bar', data: { labels: ['Clothes', 'Glass', 'Plastic', 'Shoes', 'Cardboard', 'Paper', 'Metal', 'Biological', 'Battery', 'Trash'], datasets: [{ label: 'Items Sorted', data: [5327, 3061, 1984, 1977, 1825, 1680, 1020, 997, 944, 947], backgroundColor: '#10b981', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } } });
+
+            // C. Confidence Analysis (Line)
+            const ctxConf = document.getElementById('confidenceChart').getContext('2d');
+            new Chart(ctxConf, { type: 'line', data: { labels: ['Batch 1', 'Batch 2', 'Batch 3', 'Batch 4', 'Batch 5', 'Batch 6'], datasets: [ { label: 'Avg Confidence', data: [0.92, 0.88, 0.95, 0.85, 0.91, 0.89], borderColor: '#3b82f6', tension: 0.4 }, { label: 'Min Confidence (Flags)', data: [0.75, 0.60, 0.82, 0.55, 0.78, 0.70], borderColor: '#ef4444', borderDash: [5, 5], tension: 0.4 } ] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 0.5, max: 1.0 } } } });
+        }
+        
+        // --- Architecture Detail (Unchanged) ---
+        function showDetail(key) {
+            const data = componentDetails[key];
+            const detailCard = document.getElementById('detail-card');
+            document.querySelectorAll('.arch-node').forEach(node => node.classList.remove('active-node'));
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-role').innerText = data.role;
+            document.getElementById('detail-tech').innerText = data.tech;
+            document.getElementById('detail-percent').innerText = data.percent + '%';
+            document.getElementById('detail-bar').style.width = data.percent + '%';
+            document.getElementById('detail-desc').innerText = data.desc;
+            detailCard.classList.add('scale-95', 'opacity-50');
+            setTimeout(() => { detailCard.classList.remove('scale-95', 'opacity-50'); }, 150);
+        }
+
+        // --- Input Handling ---
+        document.getElementById('imageUpload').addEventListener('change', handleFileUpload);
+        
+        function handleFileUpload(event) {
+            uploadedFiles = Array.from(event.target.files);
+            const fileList = document.getElementById('fileList');
+            const fileCount = document.getElementById('fileCount');
+            const startButton = document.getElementById('startClassificationButton');
+            let totalSizeKB = 0;
+
+            fileList.innerHTML = '';
+            
+            if (uploadedFiles.length > 0) {
+                uploadedFiles.forEach(file => {
+                    const li = document.createElement('li');
+                    li.textContent = file.name;
+                    fileList.appendChild(li);
+                    totalSizeKB += file.size;
+                });
+                startButton.disabled = false;
+            } else {
+                startButton.disabled = true;
+            }
+
+            fileCount.textContent = `${uploadedFiles.length} files selected.`;
+        }
+
+        // --- LOG POLLING LOGIC ---
+        let lastLogCount = 0;
+        
+        async function fetchLogs() {
+            try {
+                const response = await fetch(API_ENDPOINT_LOGS);
+                const result = await response.json();
+                
+                const logWindow = document.getElementById('console-output');
+                
+                if (result.logs && result.logs.length > lastLogCount) {
+                    const newLogs = result.logs.slice(lastLogCount);
+                    
+                    let htmlContent = newLogs.map(log => {
+                        let colorClass = 'text-emerald-400';
+                        
+                        if (log.includes('ERROR') || log.includes('Traceback')) {
+                            colorClass = 'text-red-400';
+                        } else if (log.includes('WARNING') || log.includes('DEBUG')) {
+                            colorClass = 'text-yellow-400';
+                        } else if (log.includes('Classification of')) {
+                            colorClass = 'text-cyan-400';
+                        }
+                        
+                        // Highlight key phrases (Prediction, Score, Low Confidence Warnings)
+                        log = log.replace(/file\_name|ai\_prediction|prediction\_score/g, '<span class="text-purple-400 font-bold">$&</span>');
+                        log = log.replace(/< 0\.80|Low Confidence detected|DATABASE ERROR/g, '<span class="text-red-500 font-bold bg-slate-800 p-1 rounded">⚠️ $&</span>');
+                        
+                        return `<pre class="log-line ${colorClass}">${log}</pre>`;
+                    }).join('');
+
+                    logWindow.innerHTML += htmlContent;
+                    logWindow.scrollTop = logWindow.scrollHeight;
+                    lastLogCount = result.logs.length;
+                }
+                
+                // If script is no longer running, stop polling
+                if (!result.running) {
+                    clearInterval(logPollingInterval);
+                    document.getElementById('startClassificationButton').disabled = false;
+                    logWindow.innerHTML += '<div class="text-slate-500 mt-2">--- PROCESS TERMINATED. Check MySQL for final logs. ---</div>';
+                }
+
+            } catch (error) {
+                 // Ignore connection errors if the server hasn't started yet
+                if (lastLogCount > 0) {
+                    logWindow.innerHTML = '<div class="text-red-500">Log Polling Error (Server Down)</div>';
+                }
+            }
+        }
+
+        // --- Core Server Trigger ---
+        async function triggerLocalSortAndPoll() {
+            const startButton = document.getElementById('startClassificationButton');
+            const logWindow = document.getElementById('console-output');
+            
+            if (logPollingInterval) clearInterval(logPollingInterval); // Stop any previous polling
+            lastLogCount = 0;
+            logWindow.innerHTML = '<div class="text-slate-500 mb-2">Attempting connection to local server (Port 5000)...</div>';
+            startButton.disabled = true;
+
+            const fileNames = uploadedFiles.map(f => f.name);
+
+            try {
+                // 1. Send START signal
+                const response = await fetch(API_ENDPOINT_START, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ files: fileNames })
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    logWindow.innerHTML = `
+                        <div class="text-emerald-400 mt-2">
+                            [SUCCESS] Trigger Signal Sent: ${result.message}
+                            <br>
+                            <span class="text-yellow-400">-- Starting live log stream... --</span>
+                        </div>
+                    `;
+                    // 2. Start polling for logs immediately after successful trigger
+                    logPollingInterval = setInterval(fetchLogs, 500); // Poll every 0.5 seconds
+                    
+                } else {
+                    logWindow.innerHTML += `
+                        <div class="text-red-500 mt-2">
+                            [SERVER ERROR ${response.status}] Failed to start script: ${result.message || 'Check Flask Terminal for error details.'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                logWindow.innerHTML = `
+                    <div class="text-red-500 mt-2">
+                        [CONNECTION FAILED] Could not reach the server at ${API_ENDPOINT_START}.<br>
+                        <span class="text-yellow-400">Is <code>server_bridge.py</code> running? If not, restart it.</span>
+                    </div>
+                `;
+            } finally {
+                startButton.disabled = false;
+            }
+        }
+        
+        // --- Initialization ---
+        window.onload = () => {
+            initCharts();
+            // Start silent polling immediately to detect server connection status
+            // This is primarily for debugging, but keeps the console updated.
+            logPollingInterval = setInterval(fetchLogs, 1500); 
+        };
+
+    </script>
+</body>
+</html>
