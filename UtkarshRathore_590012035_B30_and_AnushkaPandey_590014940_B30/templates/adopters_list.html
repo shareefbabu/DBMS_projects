@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Adopters</h3>
+  <a class="btn btn-primary" href="{{ url_for('adopters_new') }}">+ Add Adopter</a>
+</div>
+
+<form class="mb-3" method="get">
+  <div class="input-group">
+    <input name="q" value="{{ q }}" class="form-control" placeholder="Search adopters">
+    <button class="btn btn-outline-secondary">Search</button>
+  </div>
+</form>
+
+<div class="table-responsive animate__animated animate__fadeIn">
+  <table class="table table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Registered</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for a in adopters %}
+      <tr>
+        <td>{{ a.adopter_id }}</td>
+        <td>{{ a.full_name }}</td>
+        <td>{{ a.email }}</td>
+        <td>{{ a.phone or '' }}</td>
+        <td>{{ a.address or '' }}</td>
+        <td>{{ a.date_registered }}</td>
+
+        <td>
+          <form method="post"
+                action="{{ url_for('adopters_delete', adopter_id=a.adopter_id) }}"
+                onsubmit="return confirm('Delete?')">
+            <button class="btn btn-sm btn-outline-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
