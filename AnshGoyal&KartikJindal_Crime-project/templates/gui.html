@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crime Case Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .modal-body {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .stats-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .btn-action {
+            padding: 2px 10px;
+            font-size: 14px;
+        }
+
+        .detail-box {
+            background: #ffffff;
+            padding: 15px;
+            border-left: 5px solid #007bff;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="mb-4"><b>Crime Case Management</b></h1>
+
+    <!-- Stats -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="stats-box">
+                <h5>Total Cases</h5>
+                <h3>{{ total_cases }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stats-box">
+                <h5>Open Cases</h5>
+                <h3 style="color: green;">{{ open_cases }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stats-box">
+                <h5>Closed Cases</h5>
+                <h3 style="color: red;">{{ closed_cases }}</h3>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Case Button -->
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCaseModal">
+        + Add New Case
+    </button>
+
+    <!-- Cases Table -->
+    <div class="table-container">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Officer</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for c in cases %}
+                <tr>
+                    <td>{{ c.case_id }}</td>
+                    <td>{{ c.case_code }}</td>
+                    <td>{{ c.case_date }}</td>
+                    <td>{{ c.type_name }}</td>
+                    <td>{{ c.location }}</td>
+                    <td>{{ c.officer_name }}</td>
+                    <td>{{ c.status }}</td>
+
+                    <td>
+                        <a href="/case/{{ c.case_id }}" class="btn btn-sm btn-info btn-action">View</a>
+
+                        {% if c.status == "Open" %}
+                        <a href="/case/close/{{ c.case_id }}" class="btn btn-sm btn-warning btn-action">Close</a>
+                        {% endif %}
+
+                        <form method="POST" action="/case/delete/{{ c.case_id }}" style="display:inline;">
+                            <button class="btn btn-sm btn-danger btn-action"
+                                    onclick="return confirm('Delete this case?');">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- CASE DETAILS (Right below table) -->
+    {% if detail %}
+        <div class="detail-box">
+            <h4><b>Case Details</b></h4>
+            <p><b>Code:</b> {{ detail.case_code }}</p>
+            <p><b>Date:</b> {{ detail.case_date }}</p>
+            <p><b>Type:</b> {{ detail.type_name }}</p>
+            <p><b>Location:</b> {{ detail.area }}, {{ detail.city }}, {{ detail.state }}</p>
+            <p><b>Officer:</b> {{ detail.officer_name }}</p>
+            <p><b>Status:</b> {{ detail.status }}</p>
+            <p><b>Description:</b> {{ detail.description }}</p>
+        </div>
+    {% endif %}
+
+
+</div>
+
+<!-- Add Case Modal -->
+<div class="modal fade" id="addCaseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form method="POST" action="/case/add">
+
+                <div class="modal-header">
+                    <h4>Add Case</h4>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <label>Case Code</label>
+                    <input type="text" name="case_code" class="form-control" required>
+
+                    <label class="mt-2">Date</label>
+                    <input type="date" name="case_date" class="form-control" required>
+
+                    <label class="mt-3">Crime Type</label>
+                    <select name="type_id" class="form-select">
+                        {% for t in crime_types %}
+                            <option value="{{ t.type_id }}">{{ t.type_name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <h5 class="mt-4">Location Details</h5>
+
+                    <label>Area</label>
+                    <input type="text" name="area" class="form-control" required>
+
+                    <label class="mt-2">City</label>
+                    <input type="text" name="city" class="form-control" required>
+
+                    <label class="mt-2">State</label>
+                    <input type="text" name="state" class="form-control" required>
+
+
+                    <h5 class="mt-4">Officer Details</h5>
+
+                    <label>Officer Name</label>
+                    <input type="text" name="officer_name" class="form-control" required>
+
+                    <label class="mt-3">Case Description</label>
+                    <textarea class="form-control" name="description" rows="4"></textarea>
+
+                    <label class="mt-3">Status</label>
+                    <select name="status" class="form-select">
+                        <option>Open</option>
+                        <option>Closed</option>
+                    </select>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success">Save Case</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
