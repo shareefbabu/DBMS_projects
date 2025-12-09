@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Issue & Return Books</h2>
+
+    <!-- ISSUE FORM -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Issue a Book</div>
+        <div class="card-body">
+
+            <form action="/issue" method="POST" class="row g-3">
+
+                <div class="col-md-4">
+                    <label class="form-label">Student ID</label>
+                    <input type="text" name="student_id" class="form-control" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Book ISBN-10</label>
+                    <input type="text" name="book_isbn10" class="form-control" required>
+                </div>
+
+                <div class="col-md-4 d-flex align-items-end">
+                    <button class="btn btn-success w-100">Issue Book</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ISSUES TABLE -->
+    <h4>Issued Books</h4>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Book</th>
+                <th>Issued</th>
+                <th>Returned</th>
+                <th>Overdue (days)</th>
+                <th>Fine</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for i in issues %}
+            <tr>
+
+                <td>{{ i.student_name }} ({{ i.student_id }})</td>
+                <td>{{ i.book_title }}</td>
+                <td>{{ i.issue_date }}</td>
+                <td>{{ i.return_date if i.return_date else "Not Returned" }}</td>
+                <td>{{ i.overdue_days }}</td>
+
+                <td>
+                    {% if i.fine_due == 0 %}
+                        <strong>00</strong>
+                    {% else %}
+                        {{ i.fine_due }}
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if not i.return_date %}
+                    <form action="/return" method="POST" class="d-inline">
+                        <input type="hidden" name="issue_id" value="{{ i._id }}">
+                        <button class="btn btn-warning btn-sm">Return</button>
+                    </form>
+                    {% endif %}
+
+                    {% if i.fine_due > 0 %}
+                    <form action="/pay_fine" method="POST" class="d-inline">
+                        <input type="hidden" name="issue_id" value="{{ i._id }}">
+                        <button class="btn btn-success btn-sm">Pay Fine</button>
+                    </form>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h2>Edit Book</h2>
+
+<form method="post">
+
+    <label class="form-label">ISBN-10 (cannot change)</label>
+    <input class="form-control mb-2" value="{{ book.isbn10 }}" disabled>
+    <input type="hidden" name="isbn10" value="{{ book.isbn10 }}">
+
+    <label class="form-label">Title</label>
+    <input name="title" class="form-control mb-2" value="{{ book.title }}" required>
+
+    <label class="form-label">Authors</label>
+    <input name="authors" class="form-control mb-2" value="{{ book.authors }}" required>
+
+    <label class="form-label">Categories</label>
+    <input name="categories" class="form-control mb-2" value="{{ book.categories }}">
+
+    <label class="form-label">Description</label>
+    <textarea name="description" class="form-control mb-2">{{ book.description }}</textarea>
+
+    <label class="form-label">Published Year</label>
+    <input name="published_year" class="form-control mb-2" value="{{ book.published_year }}" required>
+
+    <label class="form-label">Number of Pages</label>
+    <input name="num_pages" class="form-control mb-2" value="{{ book.num_pages }}" required>
+
+    <label class="form-label">Average Rating</label>
+    <input name="average_rating" class="form-control mb-2" value="{{ book.average_rating }}" required>
+
+    <button class="btn btn-primary mt-2">Update Book</button>
+
+</form>
+
+{% endblock %}

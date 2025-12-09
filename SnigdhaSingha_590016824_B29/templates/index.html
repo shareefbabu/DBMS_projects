@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h2>Books</h2>
+
+<form class="mb-3" method="get" action="/">
+    <input type="text" name="q" class="form-control" placeholder="Search by title, author, ISBN" value="{{ search_query }}">
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ISBN-10</th>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for b in books %}
+        <tr>
+            <td>{{ b.isbn10 }}</td>
+            <td>{{ b.title }}</td>
+            <td>{{ b.authors }}</td>
+            <td>{{ b.categories }}</td>
+            <td>
+                <a href="/edit/{{ b.isbn10 }}" class="btn btn-primary btn-sm">Edit</a>
+                <form method="post" action="/delete/{{ b.isbn10 }}" style="display:inline-block;" onsubmit="return confirm('Delete this book?');">
+                    <button class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

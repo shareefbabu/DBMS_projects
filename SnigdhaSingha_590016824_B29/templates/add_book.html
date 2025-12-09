@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h2>Add Book</h2>
+
+<form method="post">
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <label class="form-label">ISBN-10</label>
+            <input name="isbn10" class="form-control" value="{{ book.isbn10 }}" required>
+
+            <label class="form-label">Title</label>
+            <input name="title" class="form-control" value="{{ book.title }}" required>
+
+            <label class="form-label">Authors</label>
+            <input name="authors" class="form-control" value="{{ book.authors }}" required>
+
+            <label class="form-label">Categories</label>
+            <input name="categories" class="form-control" value="{{ book.categories }}">
+
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control">{{ book.description }}</textarea>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <label class="form-label">Published Year</label>
+            <input name="published_year" class="form-control" value="{{ book.published_year }}" required>
+
+            <label class="form-label">Number of Pages</label>
+            <input name="num_pages" class="form-control" value="{{ book.num_pages }}" required>
+
+            <label class="form-label">Average Rating</label>
+            <input name="average_rating" class="form-control" value="{{ book.average_rating }}" required>
+
+        </div>
+    </div>
+
+    <button class="btn btn-success mt-3">Add Book</button>
+
+</form>
+
+{% endblock %}
