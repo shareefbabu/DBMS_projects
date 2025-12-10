@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+
+{% block title %}Digital Payment Training - SE Simulator{% endblock %}
+
+{% block content %}
+<style>
+    .scenario-container {
+        max-width: 100%;
+        margin: 0 auto;
+        background: #0f172a;
+        /* Slate 900 */
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 0 40px rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .scenario-header {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 78, 59, 0.2) 100%);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .scenario-header::before {
+        content: '📱';
+        font-size: 5rem;
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        opacity: 0.1;
+        transform: rotate(-15deg);
+    }
+
+    .scenario-header::after {
+        content: '💳';
+        font-size: 5rem;
+        position: absolute;
+        bottom: -10px;
+        right: 20px;
+        opacity: 0.1;
+        transform: rotate(15deg);
+    }
+
+    .scenario-header h1 {
+        color: #10b981;
+        /* Emerald 500 */
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        font-weight: 800;
+        text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .scenario-content {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 12px;
+        padding: 2.5rem;
+    }
+
+    .phone-simulator {
+        max-width: 400px;
+        margin: 0 auto 2.5rem auto;
+        border: 8px solid #334155;
+        border-radius: 24px;
+        background: #000;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .phone-screen {
+        background: #fff;
+        color: #000;
+        padding: 1rem;
+        min-height: 400px;
+        font-family: sans-serif;
+    }
+
+    .app-header {
+        background: #2563eb;
+        /* Generic Pay Blue */
+        color: white;
+        padding: 1rem;
+        margin: -1rem -1rem 1rem -1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .msg-bubble {
+        background: #f1f5f9;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .scenario-description {
+        color: #e2e8f0;
+        font-size: 1.125rem;
+        line-height: 1.7;
+        padding: 1.5rem;
+        background: rgba(16, 185, 129, 0.05);
+        border-left: 4px solid #10b981;
+        border-radius: 6px;
+        margin-bottom: 2rem;
+    }
+
+    .btn-option {
+        padding: 1.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: 2px solid #334155;
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        color: #e2e8f0;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .btn-option:hover {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.05);
+        transform: translateY(-2px);
+    }
+
+    .btn-option span.icon {
+        font-size: 1.5rem;
+    }
+
+    .feedback-section {
+        margin-top: 2rem;
+        padding: 2rem;
+        background: rgba(16, 185, 129, 0.05);
+        border-radius: 12px;
+        border: 1px solid #10b981;
+    }
+
+    .btn-primary {
+        background: #10b981;
+        color: white;
+        border: none;
+        padding: 0.875rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background: #059669;
+    }
+
+    .result-correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.1);
+    }
+
+    .result-incorrect {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.1);
+    }
+</style>
+
+<div class="scenario-container">
+    <div class="scenario-header">
+        <h1>Digital Payments Training</h1>
+        <p style="color: #6ee7b7; font-size: 1.1rem;">India-Focused Scam Simulation</p>
+    </div>
+
+    <div class="scenario-content">
+        <!-- Optional Phone View for immersion -->
+        <div class="phone-simulator">
+            <div class="phone-screen">
+                <div class="app-header">
+                    <span>PayApp</span>
+                    <span>🔔</span>
+                </div>
+                <div style="font-size: 0.9rem; color: #64748b; text-align: center; margin-bottom: 1rem;">
+                    Today, 10:42 AM
+                </div>
+                <div class="msg-bubble">
+                    <strong>Payment Alert:</strong><br>
+                    {{ scenario.scenario_description }}
+                </div>
+
+                {% if options %}
+                <div style="margin-top: 2rem; text-align: center;">
+                    <button
+                        style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 20px; width: 80%;">Proceed
+                        to Pay</button>
+                    <button
+                        style="background: transparent; color: #2563eb; border: none; margin-top: 10px;">Decline</button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="response-section">
+            <h3 style="color: #e2e8f0; margin-bottom: 1rem;">What action should you take?</h3>
+
+            <div class="button-group"
+                style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                {% if options %}
+                {% for option in options %}
+                <button class="btn-option" data-response="{{ option }}">
+                    <span class="icon">👉</span>
+                    {{ option }}
+                </button>
+                {% endfor %}
+                {% else %}
+                <button class="btn-option" data-response="Legitimate">
+                    <span class="icon">✅</span> It's Safe
+                </button>
+                <button class="btn-option" data-response="Suspicious">
+                    <span class="icon">🚨</span> It's a Scam
+                </button>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="feedback-section" class="feedback-section" style="display: none;">
+            <div id="feedback-content"></div>
+            <div class="feedback-actions"
+                style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+                <!-- Link back to DigitalPayment type specifically -->
+                <button class="btn btn-primary"
+                    onclick="location.href='{{ url_for('main.get_scenario', type='DigitalPayment') }}'">Next Payment
+                    Scenario</button>
+                <button class="btn btn-secondary"
+                    style="background: #334155; color: white; padding: 0.875rem 2rem; border-radius: 8px; border: none; cursor: pointer;"
+                    onclick="location.href='{{ url_for('main.dashboard') }}'">Back to Dashboard</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const scenarioId = {{ scenario.scenario_id }};
+    const startTime = Date.now();
+
+    document.querySelectorAll('.btn-option').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const userResponse = this.dataset.response;
+            const responseTime = Math.floor((Date.now() - startTime) / 1000);
+
+            // Disable buttons
+            document.querySelectorAll('.btn-option').forEach(b => b.disabled = true);
+
+            // Submit
+            fetch('/submit-response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    scenario_id: scenarioId,
+                    response: userResponse,
+                    response_time: responseTime
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const feedbackSection = document.getElementById('feedback-section');
+                    const feedbackContent = document.getElementById('feedback-content');
+
+                    const resultColor = data.correct ? '#10b981' : '#ef4444';
+                    const resultIcon = data.correct ? '🛡️ Safe!' : '💸 You got scammed!';
+
+                    feedbackContent.innerHTML = `
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <h2 style="color: ${resultColor}; font-size: 1.75rem; margin-bottom: 0.5rem;">${resultIcon}</h2>
+                        <p style="color: #cbd5e1; font-size: 1.1rem;">${data.explanation}</p>
+                    </div>
+                `;
+                    feedbackSection.style.display = 'block';
+                    feedbackSection.style.borderColor = resultColor;
+                    feedbackSection.style.background = data.correct ? 'rgba(16, 185, 129, 0.05)' : 'rgba(239, 68, 68, 0.05)';
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Error submitting response.');
+                });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,154 @@
+[
+    {
+        "question": "What is phishing?",
+        "answer": "Phishing is a cybercrime where attackers pose as legitimate institutions via email, phone, or text to trick individuals into providing sensitive data like passwords or credit card numbers."
+    },
+    {
+        "question": "Tell me about phishing attacks",
+        "answer": "Phishing attacks often create a sense of urgency, curiosity, or fear to manipulate victims. They might pretend to be your bank, a delivery service, or your boss."
+    },
+    {
+        "question": "What is vishing?",
+        "answer": "Vishing (voice phishing) is a type of phishing attack conducted over the phone. Attackers call victims pretending to be from legitimate organizations like banks or tech support to steal sensitive information."
+    },
+    {
+        "question": "Tell me about vishing",
+        "answer": "Vishing uses voice calls to trick people. Common tactics include fake IRS calls demanding payment, fake tech support claiming your computer is infected, or scammers pretending to be your bank reporting fraud."
+    },
+    {
+        "question": "What is smishing?",
+        "answer": "Smishing (SMS phishing) is phishing via text messages. Attackers send fake texts that appear to be from legitimate sources, often with malicious links or requests for personal information."
+    },
+    {
+        "question": "What is whaling?",
+        "answer": "Whaling is a highly targeted phishing attack aimed at senior executives or high-profile individuals. Attackers research their targets extensively to create convincing, personalized attacks for maximum impact."
+    },
+    {
+        "question": "What is baiting?",
+        "answer": "Baiting uses false promises to pique a victim's greed or curiosity. Attackers might leave a malware-infected USB drive offering 'Free Money' or 'Executive Salaries' in a public place hoping someone plugs it in."
+    },
+    {
+        "question": "Explain baiting",
+        "answer": "Baiting is like a real-world Trojan Horse. It relies on the curiosity of the victim to physically insert a device or download a file that promises a reward."
+    },
+    {
+        "question": "What is pretexting?",
+        "answer": "Pretexting involves an attacker creating a fabricated scenario (the pretext) to steal information. For example, pretending to be an IT support person needing your password to 'fix' an account issue."
+    },
+    {
+        "question": "What is tailgating or piggybacking?",
+        "answer": "Tailgating is a physical security breach where an unauthorized person follows an authorized person into a secure area. For example, holding the door open for someone who doesn't have a badge."
+    },
+    {
+        "question": "What is quid pro quo?",
+        "answer": "Quid Pro Quo means 'something for something'. Attackers promise a benefit in exchange for information. A common example is calling random employees claiming to be from Tech Support offering to 'fix' a slow computer if they give their password."
+    },
+    {
+        "question": "How do I check my score?",
+        "answer": "You can view your current score on the Dashboard or the Profile page. The score updates automatically as you complete scenarios."
+    },
+    {
+        "question": "Where is the leaderboard?",
+        "answer": "The Global Leaderboard is accessible from the top navigation menu. It shows the top 10 users ranked by their total score."
+    },
+    {
+        "question": "How do I report a suspicious email?",
+        "answer": "Click the 'Report Phishing' link in the top navigation bar. You can upload details about suspicious messages you've received for analysis."
+    },
+    {
+        "question": "What is social engineering?",
+        "answer": "Social Engineering is the art of manipulating people so they give up confidential information. It targets human error rather than technical vulnerabilities."
+    },
+    {
+        "question": "Who created this platform?",
+        "answer": "This platform simulates social engineering attacks to train users. It uses local AI to answer your questions and provides real-time feedback."
+    },
+    {
+        "question": "I forgot my password",
+        "answer": "Currently, please contact your Organization Administrator to reset your password. A self-service reset feature is coming soon."
+    },
+    {
+        "question": "What is an Incident Response Drill?",
+        "answer": "Incident Response Drills are advanced scenarios available to Pro users. They simulate a live attack where you must order the correct response steps to mitigate a breach."
+    },
+    {
+        "question": "How do I access the dashboard?",
+        "answer": "Click 'Dashboard' in the top navigation menu. It shows your score, recent activity, achievements, and a 7-day activity chart."
+    },
+    {
+        "question": "Where can I see my progress?",
+        "answer": "Click 'Progress' in the navigation menu to view your learning progress, success rates by scenario type, vulnerability profile, and recent response history."
+    },
+    {
+        "question": "How do I start a training scenario?",
+        "answer": "From your Dashboard, click 'Start New Scenario' or visit the Learning Path page. The platform will recommend scenarios based on your performance."
+    },
+    {
+        "question": "What is the Learning Path?",
+        "answer": "The Learning Path provides structured training modules covering different social engineering topics. Access it from the main navigation to view available modules and micro-lessons."
+    },
+    {
+        "question": "How do I earn badges?",
+        "answer": "Badges are earned by completing scenarios, achieving high accuracy rates, and reaching score milestones. View all your earned badges in the 'Badges' section under your profile menu."
+    },
+    {
+        "question": "Where can I view my badges?",
+        "answer": "Click on your profile avatar in the top right, then select 'Badges' from the dropdown menu to see all badges you've earned."
+    },
+    {
+        "question": "How do I view my profile?",
+        "answer": "Click on your profile avatar in the top right corner and select 'My Profile' to see your stats, achievements, rank, and account details."
+    },
+    {
+        "question": "What features are available for free users?",
+        "answer": "Free users get 5 scenarios per week, access to basic training modules, dashboard analytics, leaderboard access, and the ability to report suspicious messages."
+    },
+    {
+        "question": "What do Pro users get?",
+        "answer": "Pro users get unlimited scenarios, Incident Response Drills, advanced analytics, priority support, and access to all premium training content with no weekly limits."
+    },
+    {
+        "question": "How do I upgrade to Pro?",
+        "answer": "Click the 'Upgrade' button in the top navigation bar to view Pro pricing and benefits. You'll get unlimited access to all training scenarios and advanced features."
+    },
+    {
+        "question": "Can I see other users' scores?",
+        "answer": "Yes! Visit the Leaderboard from the navigation menu to see the top 10 users by score. You can also see your own rank compared to all users."
+    },
+    {
+        "question": "How are scenarios recommended to me?",
+        "answer": "The platform uses machine learning to analyze your performance and vulnerability profile, then recommends scenarios that target your weak areas for improvement."
+    },
+    {
+        "question": "What happens when I complete a scenario?",
+        "answer": "You receive immediate feedback, earn points for correct answers, get detailed explanations, and might receive a recommended micro-lesson if you need improvement in that area."
+    },
+    {
+        "question": "How do micro-lessons work?",
+        "answer": "Micro-lessons are short 3-5 minute interactive lessons assigned when you struggle with a scenario. They include content, examples, and quizzes to reinforce learning."
+    },
+    {
+        "question": "Where do I find my assigned lessons?",
+        "answer": "Assigned micro-lessons appear in your Learning Path. You'll also get recommendations after failing scenarios to help you improve in specific areas."
+    },
+    {
+        "question": "Can I retake scenarios?",
+        "answer": "Yes! You can take scenarios multiple times. Each attempt is recorded, and you can track your improvement over time in the Progress section."
+    },
+    {
+        "question": "How is my vulnerability profile calculated?",
+        "answer": "Your vulnerability profile analyzes your performance across different scenario types (phishing, baiting, pretexting) to identify which social engineering tactics you're most susceptible to."
+    },
+    {
+        "question": "What are the different scenario types?",
+        "answer": "The platform includes Phishing emails, Baiting scenarios, Pretexting conversations, and Incident Response Drills (Pro only). Each tests different social engineering techniques."
+    },
+    {
+        "question": "Curious about recent phishing trends?",
+        "answer": "Recent phishing trends include AI-generated deepfake scams, 'Quishing' (QR code phishing), and highly targeted spear-phishing attacks on social media platforms like LinkedIn."
+    },
+    {
+        "question": "How does social engineering work?",
+        "answer": "Social Engineering works by exploiting human psychology (fear, urgency, curiosity, greed) to manipulate victims into breaking security procedures, rather than hacking the technology directly."
+    }
+]

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Report Suspicious Activity - SE Simulator{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center fade-in" style="margin-top: 3rem;">
+    <div class="col-md-10 col-lg-8">
+        <!-- Glassmorphism Card -->
+        <div class="card border-0 shadow-lg"
+            style="background: rgba(21, 27, 46, 0.85); backdrop-filter: blur(16px); border: 1px solid var(--border-accent); border-radius: 16px; overflow: hidden;">
+
+            <!-- Header with Gradient -->
+            <div class="card-header border-0 p-5"
+                style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(153, 27, 27, 0.25) 100%); border-bottom: 1px solid rgba(239, 68, 68, 0.2);">
+                <div class="d-flex align-items-center">
+                    <div
+                        style="font-size: 2.5rem; margin-right: 2rem; filter: drop-shadow(0 0 15px rgba(239,68,68,0.6));">
+                        🚨</div>
+                    <div>
+                        <h2 class="mb-2 text-white" style="font-weight: 700; letter-spacing: -0.5px;">Report Suspicious
+                            Activity</h2>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 1rem; line-height: 1.5;">
+                            Help protect your organization by flagging potential threats. <br>
+                            Your vigilance keeps everyone safe.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-5">
+                <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.report_suspicious') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <!-- Category Select -->
+                    <div class="mb-5">
+                        <label for="category" class="form-label text-white mb-3"
+                            style="font-size: 1.1rem; font-weight: 600;">
+                            What type of suspicion is this? <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-select custom-input" id="category" name="category" required
+                            style="background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-subtle); padding: 1rem; font-size: 1rem; border-radius: 8px;">
+                            <option value="" selected disabled>Select a category...</option>
+                            <option value="Phishing">📧 Phishing (Email)</option>
+                            <option value="Smishing">📱 Smishing (SMS/Text)</option>
+                            <option value="Vishing">📞 Vishing (Phone Call)</option>
+                            <option value="Teams/Slack">💬 Teams/Slack Message</option>
+                            <option value="Other">❓ Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Content Textarea -->
+                    <div class="mb-5">
+                        <label for="content_text" class="form-label text-white mb-3"
+                            style="font-size: 1.1rem; font-weight: 600;">
+                            Message Content / Headers
+                        </label>
+                        <textarea class="form-control custom-input" id="content_text" name="content_text" rows="8"
+                            placeholder="Paste the text of the message, suspicious links, or email headers here..."
+                            style="background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-subtle); padding: 1rem; font-size: 1rem; border-radius: 8px; line-height: 1.6;"></textarea>
+                        <div class="form-text mt-3 pt-2 border-top border-secondary"
+                            style="color: var(--text-muted); font-size: 0.9rem;">
+                            <i class="fas fa-info-circle me-1"></i> <strong>Tip:</strong> Include as much context as
+                            possible. Remove highly sensitive passwords if visible.
+                        </div>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="mb-5">
+                        <label for="screenshot" class="form-label text-white mb-3"
+                            style="font-size: 1.1rem; font-weight: 600;">
+                            Upload Screenshot (Optional)
+                        </label>
+                        <div class="p-4"
+                            style="background: var(--bg-tertiary); border: 2px dashed var(--border-accent); border-radius: 12px; text-align: center;">
+                            <input class="form-control custom-input" type="file" id="screenshot" name="screenshot"
+                                accept="image/*"
+                                style="background: transparent; color: var(--text-muted); border: none;">
+                            <div class="small text-muted mt-2">Supports JPG, PNG (Max 16MB)</div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid mt-5">
+                        <button type="submit" class="btn btn-lg position-relative overflow-hidden"
+                            style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); border: none; color: white; font-weight: 700; padding: 1.25rem; font-size: 1.1rem; border-radius: 10px; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3); transition: transform 0.2s;">
+                            <span class="position-relative z-10">Submit Security Report <span
+                                    style="margin-left:12px; font-size: 1.3rem;">🚀</span></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="text-center mt-5 mb-5">
+            <a href="{{ url_for('main.dashboard') }}"
+                style="color: var(--text-muted); text-decoration: none; font-size: 1rem; transition: color 0.2s;">
+                &larr; Return to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom Input Focus States */
+    .custom-input:focus {
+        background-color: var(--bg-tertiary) !important;
+        color: var(--text-primary) !important;
+        border-color: var(--accent-red) !important;
+        box-shadow: 0 0 0 0.25rem rgba(239, 68, 68, 0.25) !important;
+    }
+
+    /* File Input Styling Fix */
+    input[type="file"]::-webkit-file-upload-button {
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+        border: none;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        margin-right: 1rem;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+
+    input[type="file"]:hover::-webkit-file-upload-button {
+        background-color: var(--accent-red);
+        color: white;
+    }
+</style>
+{% endblock %}

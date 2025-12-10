@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lesson.title }}{% endblock %}
+
+{% block content %}
+<style>
+    .lesson-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 2rem;
+    }
+
+    .lesson-header {
+        border-bottom: 2px solid #334155;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .lesson-header h1 {
+        color: #e2e8f0;
+        margin: 0;
+        font-size: 1.75rem;
+    }
+
+    .time-badge {
+        background: rgba(6, 182, 212, 0.12);
+        color: #06b6d4;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .lesson-text {
+        color: #e2e8f0;
+        line-height: 1.8;
+        font-size: 1.1rem;
+        margin-bottom: 3rem;
+        white-space: pre-line;
+    }
+
+    .lesson-quiz {
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 2rem;
+    }
+
+    .lesson-quiz h2 {
+        color: #06b6d4;
+        margin-bottom: 1.5rem;
+        font-size: 1.25rem;
+    }
+
+    .quiz-question {
+        margin-bottom: 2.5rem;
+        background: rgba(30, 41, 59, 0.4);
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 2rem;
+    }
+
+    .quiz-question p {
+        color: #e2e8f0;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .quiz-options label {
+        display: flex;
+        align-items: center;
+        padding: 1.25rem;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid #334155;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: #cbd5e1;
+    }
+
+    .quiz-options label:hover {
+        border-color: #06b6d4;
+        background: rgba(6, 182, 212, 0.05);
+        color: #fff;
+    }
+
+    .quiz-options input {
+        margin-right: 1.25rem;
+        accent-color: #06b6d4;
+        transform: scale(1.1);
+    }
+
+    .btn-primary {
+        background: #06b6d4;
+        color: white;
+        padding: 1rem 2.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.2s;
+        margin-top: 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn-primary:hover {
+        background: #0891b2;
+        transform: translateY(-1px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .results-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        display: none;
+    }
+
+    .results-card {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 12px;
+        padding: 2.5rem;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .score-display {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #06b6d4;
+        margin: 1rem 0;
+    }
+</style>
+
+<div class="lesson-container">
+    <div class="lesson-header">
+        <h1>📚 {{ lesson.title }}</h1>
+        <span class="time-badge">⏱️ {{ lesson.est_time_minutes }} minutes</span>
+    </div>
+
+    <div class="lesson-content">
+        <div class="lesson-text">
+            {{ lesson.content_text | safe }}
+        </div>
+
+        <div class="lesson-quiz">
+            <h2>📝 Quick Knowledge Check</h2>
+            {% set quiz = lesson.quiz_json %}
+            {% for question in quiz.questions %}
+            {% set question_index = loop.index0 %}
+            <div class="quiz-question" data-type="{{ question.type }}">
+                <p>{{ loop.index }}. {{ question.question }}</p>
+
+                <!-- MCQ / Scenario MCQ -->
+                {% if question.type in ['mcq', 'scenario_mcq'] %}
+                <div class="quiz-options">
+                    {% for option in question.options %}
+                    <label>
+                        <input type="radio" name="q{{ question_index }}" value="{{ option }}">
+                        {{ option }}
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <!-- Fill in the Blank -->
+                {% elif question.type == 'fill_blank' %}
+                <div class="quiz-input">
+                    <input type="text" name="q{{ question_index }}" placeholder="Type your answer here..."
+                        style="width: 100%; padding: 1rem; background: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 6px; color: #e2e8f0; font-size: 1rem;">
+                </div>
+
+                <!-- Matching -->
+                {% elif question.type == 'matching' %}
+                <div class="quiz-matching">
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 1rem;">Match the items on the left with
+                        the correct description.</p>
+                    {% for key, val in question.pairs.items() %}
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center;">
+                        <div style="flex: 1; padding: 0.75rem; background: rgba(30, 41, 59, 0.8); border-radius: 6px;">
+                            {{ key }}</div>
+                        <div style="flex: 0 0 2rem; text-align: center;">➜</div>
+                        <div style="flex: 2;">
+                            <select name="q{{ question_index }}_{{ loop.index0 }}"
+                                style="width: 100%; padding: 0.75rem; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #e2e8f0;">
+                                <option value="" disabled selected>Select matching description...</option>
+                                {% for _, v in question.pairs.items()|shuffle %}
+                                <option value="{{ v }}">{{ v }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button id="submit-lesson-quiz" class="btn-primary">Complete Lesson</button>
+        </div>
+    </div>
+</div>
+
+<div id="results-overlay" class="results-overlay">
+    <div class="results-card">
+        <h2 style="color: #e2e8f0; margin-bottom: 1rem;">Lesson Completed!</h2>
+        <div class="score-display" id="final-score">0%</div>
+        <p style="color: #94a3b8; margin-bottom: 2rem;">You earned <span style="color: #10b981; font-weight: bold;">+50
+                XP</span></p>
+        <a href="{{ url_for('learning.learning_path_index') }}" class="btn-primary"
+            style="display: inline-block; text-decoration: none;">Return to Path</a>
+    </div>
+</div>
+
+<script>
+    const assignmentId = {{ assignment.assignment_id }};
+    const totalQuestions = {{ lesson.quiz_json.questions| length }};
+
+    document.getElementById('submit-lesson-quiz').addEventListener('click', () => {
+        const answers = {};
+        let answeredCount = 0;
+
+        // Collect answers
+        const questions = document.querySelectorAll('.quiz-question');
+        questions.forEach((q, index) => {
+            const type = q.getAttribute('data-type');
+            if (['mcq', 'scenario_mcq'].includes(type) || !type) {
+                const selected = q.querySelector(`input[name="q${index}"]:checked`);
+                if (selected) {
+                    answers[`q${index}`] = selected.value;
+                    answeredCount++;
+                }
+            } else if (type === 'fill_blank') {
+                const input = q.querySelector(`input[name="q${index}"]`);
+                if (input && input.value.trim() !== '') {
+                    answers[`q${index}`] = input.value.trim();
+                    answeredCount++;
+                }
+            } else if (type === 'matching') {
+                const selects = q.querySelectorAll('select');
+                let allSelected = true;
+                const matchAnswers = {};
+                selects.forEach((sel, idx) => {
+                    if (sel.value === '') {
+                        allSelected = false;
+                    } else {
+                        // Store partial matches or combined
+                        // We will send a sub-object for matching
+                        const key = sel.name; // q{parent}_{child}
+                        answers[key] = sel.value;
+                    }
+                });
+                if (allSelected && selects.length > 0) {
+                    answeredCount++;
+                }
+            }
+        });
+
+        if (answeredCount < totalQuestions) {
+            alert('Please answer all questions before submitting.');
+            return;
+        }
+
+        // Submit
+        fetch(`/submit-lesson/${assignmentId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ answers: answers })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('final-score').textContent = data.score + '%';
+                    document.getElementById('results-overlay').style.display = 'flex';
+                }
+            })
+            .catch(err => console.error('Error:', err));
+    });
+</script>
+{% endblock %}

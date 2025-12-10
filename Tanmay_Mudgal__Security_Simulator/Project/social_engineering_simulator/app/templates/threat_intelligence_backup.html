@@ -1,0 +1,770 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 0; max-width: 1400px;">
+    <!-- Hero Section -->
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h1
+            style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #ef4444 0%, #f97316 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            🚨 Cyber Threat Intelligence
+        </h1>
+        <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto;">
+            The shocking reality of cybersecurity threats in today's digital world
+        </p>
+    </div>
+
+    <!-- Key Statistics Grid -->
+    <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+        <!-- Global Cybercrime Cost -->
+        <div class="card"
+            style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">💸</div>
+            <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.5rem;">$10.5
+                Trillion</div>
+            <div style="color: var(--text-secondary);">Global cost of cybercrime by 2025</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem;">Cybersecurity Ventures 2024</div>
+        </div>
+
+        <!-- Data Breach Cost -->
+        <div class="card"
+            style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+            <div style="font-size: 2.5rem; font-weight: 700; color: #ef4444; margin-bottom: 0.5rem;">$4.88M</div>
+            <div style="color: var(--text-secondary);">Average cost of a data breach in 2024</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem;">IBM Security Report 2024</div>
+        </div>
+
+        <!-- Ransomware Payments -->
+        <div class="card"
+            style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🔒</div>
+            <div style="font-size: 2.5rem; font-weight: 700; color: #f59e0b; margin-bottom: 0.5rem;">$1.54B</div>
+            <div style="color: var(--text-secondary);">Total ransomware payments in 2023</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem;">Chainalysis 2024</div>
+        </div>
+
+        <!-- Attack Frequency -->
+        <div class="card"
+            style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⏱️</div>
+            <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.5rem;">39
+                Seconds</div>
+            <div style="color: var(--text-secondary);">A cyberattack occurs every 39 seconds</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem;">University of Maryland Study</div>
+        </div>
+
+        <!-- Password Attacks -->
+        <div class="card"
+            style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🔑</div>
+            <div style="font-size: 2.5rem; font-weight: 700; color: #a855f7; margin-bottom: 0.5rem;">80%</div>
+            <div style="color: var(--text-secondary);">Of breaches involve weak or stolen passwords</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem;">Verizon DBIR 2024</div>
+        </div>
+
+        <!-- IoT Devices -->
+        <div class="card"
+            style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📡</div>
+            <div style="font-size: 2.5rem; font-weight: 700; color: #10b981; margin-bottom: 0.5rem;">112 Billion</div>
+            <div style="color: var(--text-secondary);">IoT devices vulnerable to attacks by 2025</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem;">Gartner Research 2024</div>
+        </div>
+    </div>
+
+    <!-- Social Engineering Statistics -->
+    <div style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff;">
+            👥 Social Engineering: The Human Factor
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+            <div class="card"
+                style="background: var(--bg-card); padding: 2rem; border-radius: 12px; border-left: 4px solid #ef4444;">
+                <h3 style="color: #ef4444; font-size: 1.2rem; margin-bottom: 1rem;">📧 Phishing Attacks</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                    <strong style="color: #ffffff; font-size: 1.8rem;">91%</strong> of cyberattacks begin with a
+                    phishing email
+                </p>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Over 3.4 billion phishing emails are sent daily
+                    worldwide</p>
+            </div>
+
+            <div class="card"
+                style="background: var(--bg-card); padding: 2rem; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                <h3 style="color: #f59e0b; font-size: 1.2rem; margin-bottom: 1rem;">🎯 Success Rate</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                    <strong style="color: #ffffff; font-size: 1.8rem;">32%</strong> of employees click on phishing links
+                </p>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Even trained users fall for sophisticated attacks</p>
+            </div>
+
+            <div class="card"
+                style="background: var(--bg-card); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+                <h3 style="color: var(--accent-cyan); font-size: 1.2rem; margin-bottom: 1rem;">⚡ Response Time</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                    <strong style="color: #ffffff; font-size: 1.8rem;">16 Minutes</strong> average time to click after
+                    receiving phishing email
+                </p>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Attackers exploit urgency and curiosity</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Breach Statistics -->
+    <div style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff;">
+            🔓 Data Breaches in 2023-2024
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+            <div class="card" style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="font-size: 2rem;">🏥</div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan);">$10.93M</div>
+                        <div style="color: var(--text-secondary); font-size: 0.875rem;">Average healthcare breach cost
+                        </div>
+                    </div>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Highest among all industries for 13 consecutive years
+                </p>
+            </div>
+
+            <div class="card" style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="font-size: 2rem;">👤</div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #ef4444;">422 Million</div>
+                        <div style="color: var(--text-secondary); font-size: 0.875rem;">Records compromised in 2023
+                        </div>
+                    </div>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Personal information, credentials, financial data</p>
+            </div>
+
+            <div class="card" style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="font-size: 2rem;">⏰</div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #f59e0b;">277 Days</div>
+                        <div style="color: var(--text-secondary); font-size: 0.875rem;">Average time to identify a
+                            breach</div>
+                    </div>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Plus 70 days to contain it once discovered</p>
+            </div>
+
+            <div class="card" style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="font-size: 2rem;">🎭</div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan);">82%</div>
+                        <div style="color: var(--text-secondary); font-size: 0.875rem;">Breaches involve human element
+                        </div>
+                    </div>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Errors, social engineering, misuse of privileges</p>
+            </div>
+
+            <div class="card" style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="font-size: 2rem;">🦠</div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #a855f7;">5.5 Billion</div>
+                        <div style="color: var(--text-secondary); font-size: 0.875rem;">Malware attacks in 2023</div>
+                    </div>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Trojans, ransomware, and spyware dominate attacks</p>
+            </div>
+
+            <div class="card" style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="font-size: 2rem;">👨‍💼</div>
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #ef4444;">34%</div>
+                        <div style="color: var(--text-secondary); font-size: 0.875rem;">Breaches caused by insiders
+                        </div>
+                    </div>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.875rem;">Malicious actors or negligent employees within
+                    organization</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Industry Impact -->
+    <div style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff;">
+            🎯 Most Targeted Industries
+        </h2>
+        <div class="card" style="background: var(--bg-card); padding: 2rem; border-radius: 12px;">
+            <div style="display: grid; gap: 1.5rem;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle);">
+                    <div>
+                        <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.25rem;">Healthcare</div>
+                        <div style="font-size: 0.875rem; color: #94a3b8;">Patient data, insurance fraud, ransomware
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #ef4444;">34%</div>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle);">
+                    <div>
+                        <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.25rem;">Financial Services</div>
+                        <div style="font-size: 0.875rem; color: #94a3b8;">Banking, credit cards, cryptocurrency</div>
+                    </div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #f59e0b;">28%</div>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle);">
+                    <div>
+                        <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.25rem;">Retail & E-commerce</div>
+                        <div style="font-size: 0.875rem; color: #94a3b8;">Customer data, payment info, supply chain
+                        </div>
+                    </div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan);">22%</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.25rem;">Technology &
+                            Manufacturing</div>
+                        <div style="font-size: 0.875rem; color: #94a3b8;">Intellectual property, trade secrets</div>
+                    </div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #a855f7;">16%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real-World Breach Examples -->
+    <div style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff;">
+            💥 Major Cyber Incidents (2022-2024)
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem;">
+            <div class="card"
+                style="background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%); padding: 2rem; border-radius: 12px; border: 1px solid #ef4444;">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <h3 style="color: #fca5a5; font-size: 1.3rem; font-weight: 700;">MOVEit Breach</h3>
+                    <span
+                        style="background: #ef4444; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">2023</span>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <div style="font-size: 2rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">2,700+
+                        Organizations</div>
+                    <div style="color: #fca5a5; font-weight: 600;">77 Million People Affected</div>
+                </div>
+                <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.875rem;">
+                    Russian ransomware group Cl0p exploited zero-day vulnerability in MOVEit file transfer software.
+                    Victims included government agencies, banks, and healthcare providers worldwide.
+                </p>
+            </div>
+
+            <div class="card"
+                style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); padding: 2rem; border-radius: 12px; border: 1px solid #64748b;">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <h3 style="color: #94a3b8; font-size: 1.3rem; font-weight: 700;">LastPass Breach</h3>
+                    <span
+                        style="background: #64748b; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">2022</span>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <div style="font-size: 2rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">Password
+                        Vault</div>
+                    <div style="color: #94a3b8; font-weight: 600;">Customer Data Compromised</div>
+                </div>
+                <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.875rem;">
+                    Attackers accessed encrypted password vaults, customer account info, and billing details. Led to
+                    $25M settlement and major trust crisis in password management industry.
+                </p>
+            </div>
+
+            <div class="card"
+                style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); padding: 2rem; border-radius: 12px; border: 1px solid #3b82f6;">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <h3 style="color: #93c5fd; font-size: 1.3rem; font-weight: 700;">Twitter/X Data Leak</h3>
+                    <span
+                        style="background: #3b82f6; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">2023</span>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <div style="font-size: 2rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">235 Million
+                    </div>
+                    <div style="color: #93c5fd; font-weight: 600;">Email Addresses Leaked</div>
+                </div>
+                <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.875rem;">
+                    Scraped data from API vulnerability sold on dark web for $2, including emails of high-profile
+                    accounts. Enabled targeted phishing campaigns.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shocking Facts Carousel -->
+    <div style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff;">
+            💡 Did You Know?
+        </h2>
+        <div class="card"
+            style="background: linear-gradient(135deg, #065f46 0%, #047857 100%); padding: 2.5rem; border-radius: 12px; border: 1px solid #10b981; position: relative;">
+            <!-- Left Arrow -->
+            <button onclick="previousFact()"
+                style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #ffffff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s;"
+                onmouseover="this.style.background='rgba(255,255,255,0.2)'"
+                onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                ←
+            </button>
+
+            <!-- Right Arrow -->
+            <button onclick="nextFact()"
+                style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #ffffff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s;"
+                onmouseover="this.style.background='rgba(255,255,255,0.2)'"
+                onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                →
+            </button>
+
+            <div id="shocking-fact" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                <p style="font-size: 1.4rem; color: #ffffff; font-weight: 600; line-height: 1.6; margin-bottom: 0.5rem;"
+                    id="fact-text">
+                    A ransomware attack occurs every 11 seconds globally
+                </p>
+                <p style="color: #6ee7b7; font-size: 0.875rem;" id="fact-source">Cybersecurity Ventures 2024</p>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem;">
+                <button onclick="showFact(0)"
+                    style="width: 12px; height: 12px; border-radius: 50%; border: none; background: #10b981; cursor: pointer;"
+                    id="dot-0"></button>
+                <button onclick="showFact(1)"
+                    style="width: 12px; height: 12px; border-radius: 50%; border: none; background: #065f46; cursor: pointer;"
+                    id="dot-1"></button>
+                <button onclick="showFact(2)"
+                    style="width: 12px; height: 12px; border-radius: 50%; border: none; background: #065f46; cursor: pointer;"
+                    id="dot-2"></button>
+                <button onclick="showFact(3)"
+                    style="width: 12px; height: 12px; border-radius: 50%; border: none; background: #065f46; cursor: pointer;"
+                    id="dot-3"></button>
+                <button onclick="showFact(4)"
+                    style="width: 12px; height: 12px; border-radius: 50%; border: none; background: #065f46; cursor: pointer;"
+                    id="dot-4"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Geographic Targeting Data -->
+    <div style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff;">
+            🌍 Most Targeted Countries (2023)
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div class="card"
+                style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #3b82f6;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇺🇸</div>
+                        <div style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">United States</div>
+                        <div style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.25rem;">46% of all attacks</div>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #3b82f6;">1</div>
+                </div>
+            </div>
+
+            <div class="card"
+                style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇬🇧</div>
+                        <div style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">United Kingdom</div>
+                        <div style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.25rem;">14% of all attacks</div>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #f59e0b;">2</div>
+                </div>
+            </div>
+
+            <div class="card"
+                style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ef4444;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇨🇦</div>
+                        <div style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Canada</div>
+                        <div style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.25rem;">9% of all attacks</div>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #ef4444;">3</div>
+                </div>
+            </div>
+
+            <div class="card"
+                style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇮🇳</div>
+                        <div style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">India</div>
+                        <div style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.25rem;">7% of all attacks</div>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-cyan);">4</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emerging Threats -->
+    <div>
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff;">
+            🔮 Emerging Threats in 2024
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <div class="card"
+                style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); padding: 2rem; border-radius: 12px; border: 1px solid #6366f1;">
+                <h3 style="color: #a78bfa; font-size: 1.2rem; margin-bottom: 1rem;">🤖 AI-Powered Attacks</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    Deepfake voice phishing and AI-generated phishing emails are increasing by 135% year-over-year,
+                    making detection significantly harder.
+                </p>
+            </div>
+
+            <div class="card"
+                style="background: linear-gradient(135deg, #7c2d12 0%, #991b1b 100%); padding: 2rem; border-radius: 12px; border: 1px solid #ef4444;">
+                <h3 style="color: #fca5a5; font-size: 1.2rem; margin-bottom: 1rem;">📱 Mobile Malware</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    Mobile malware increased 50% in 2023, with banking trojans and spyware targeting both iOS and
+                    Android users globally.
+                </p>
+            </div>
+
+            <div class="card"
+                style="background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); padding: 2rem; border-radius: 12px; border: 1px solid #10b981;">
+                <h3 style="color: #6ee7b7; font-size: 1.2rem; margin-bottom: 1rem;">☁️ Cloud Vulnerabilities</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    80% of organizations experienced at least one cloud security incident in 2023, often due to
+                    misconfiguration and weak access controls.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="card"
+        style="background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%); padding: 3rem; border-radius: 12px; text-align: center; margin-top: 3rem; border: 1px solid var(--accent-cyan);">
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; color: #ffffff;">
+            💪 Stay Protected
+        </h2>
+        <p style="color: #e0f2fe; margin-bottom: 2rem; font-size: 1.1rem;">
+            Knowledge is your first line of defense. Train regularly, stay informed, and always verify before you trust.
+        </p>
+        <a href="{{ url_for('learning.learning_path_index') }}" class="nav-btn-accent"
+            style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 0.75rem 2rem; border-radius: 20px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);">
+            Continue Your Training →
+        </a>
+    </div>
+</div>
+
+<!-- Sources & Methodology -->
+<div class="container" style="padding: 2rem 0; max-width: 1400px; margin-top: 2rem;">
+    <div class="card"
+        style="background: var(--bg-card); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff; text-align: center;">
+            📚 Sources & References
+        </h2>
+        <p style="color: var(--text-secondary); text-align: center; margin-bottom: 2rem;">
+            All statistics are from authoritative cybersecurity research organizations and reports
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📊</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">IBM Security</div>
+                <a href="https://www.ibm.com/reports/data-breach" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Cost of a Data Breach
+                    Report 2024 →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🔐</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">Verizon</div>
+                <a href="https://www.verizon.com/business/resources/reports/dbir/" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Data Breach
+                    Investigations Report →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">₿</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">Chainalysis</div>
+                <a href="https://www.chainalysis.com/blog/crypto-crime-report" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Crypto Crime Report
+                    2024 →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🌐</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">Cybersecurity Ventures</div>
+                <a href="https://cybersecurityventures.com/" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Annual Cybercrime
+                    Report →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🎓</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">University of Maryland</div>
+                <a href="https://eng.umd.edu" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Clark School Research
+                    →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📈</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">Gartner</div>
+                <a href="https://www.gartner.com/en/information-technology" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">IT Research &
+                    Advisory →</a>
+            </div>
+        </div>
+        <p style="color: #64748b; text-align: center; margin-top: 2rem; font-size: 0.875rem;">
+            Last updated: December 2024 | Data reflects 2023-2024 reporting periods
+        </p>
+    </div>
+</div>
+
+<script>
+    // Shocking Facts Carousel
+    const facts = [
+        {
+            text: "A ransomware attack occurs every 11 seconds globally",
+            source: "Cybersecurity Ventures 2024"
+        },
+        {
+            text: "The average ransom demand reached $1.54 million in 2023",
+            source: "Palo Alto Networks Unit 42"
+        },
+        {
+            text: "95% of cybersecurity breaches are caused by human error",
+            source: "World Economic Forum 2023"
+        },
+        {
+            text: "It takes an average of 9 months to detect a data breach",
+            source: "IBM Security Report 2024"
+        },
+        {
+            text: "Phishing attacks increased 61% in 2023 compared to 2022",
+            source: "Zscaler ThreatLabz 2024"
+        }
+    ];
+
+    let currentFact = 0;
+
+    function showFact(index) {
+        currentFact = index;
+        document.getElementById('fact-text').textContent = facts[index].text;
+        document.getElementById('fact-source').textContent = facts[index].source;
+
+        // Update dots
+        for (let i = 0; i < 5; i++) {
+            <div class="card"
+                style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #3b82f6;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇺🇸</div>
+                        <div style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">United States</div>
+                        <div style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.25rem;">46% of all attacks</div>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #3b82f6;">1</div>
+                </div>
+            </div>
+
+            <div class="card"
+                style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇬🇧</div>
+                        <div style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">United Kingdom</div>
+                        <div style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.25rem;">14% of all attacks</div>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #f59e0b;">2</div>
+                </div>
+            </div>
+
+            <div class="card"
+                style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #ef4444;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇨🇦</div>
+                        <div style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Canada</div>
+                        <div style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.25rem;">9% of all attacks</div>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #ef4444;">3</div>
+                </div>
+            </div>
+
+            <div class="card"
+                style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🇮🇳</div>
+                        <div style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">India</div>
+                        <div style="color: #94a3b8; font-size: 0.875rem; margin-top: 0.25rem;">7% of all attacks</div>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-cyan);">4</div>
+                </div>
+            </div>
+        </div >
+    </div >
+
+    <!-- Emerging Threats -->
+    <div>
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff;">
+            🔮 Emerging Threats in 2024
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <div class="card"
+                style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); padding: 2rem; border-radius: 12px; border: 1px solid #6366f1;">
+                <h3 style="color: #a78bfa; font-size: 1.2rem; margin-bottom: 1rem;">🤖 AI-Powered Attacks</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    Deepfake voice phishing and AI-generated phishing emails are increasing by 135% year-over-year,
+                    making detection significantly harder.
+                </p>
+            </div>
+
+            <div class="card"
+                style="background: linear-gradient(135deg, #7c2d12 0%, #991b1b 100%); padding: 2rem; border-radius: 12px; border: 1px solid #ef4444;">
+                <h3 style="color: #fca5a5; font-size: 1.2rem; margin-bottom: 1rem;">📱 Mobile Malware</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    Mobile malware increased 50% in 2023, with banking trojans and spyware targeting both iOS and
+                    Android users globally.
+                </p>
+            </div>
+
+            <div class="card"
+                style="background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); padding: 2rem; border-radius: 12px; border: 1px solid #10b981;">
+                <h3 style="color: #6ee7b7; font-size: 1.2rem; margin-bottom: 1rem;">☁️ Cloud Vulnerabilities</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    80% of organizations experienced at least one cloud security incident in 2023, often due to
+                    misconfiguration and weak access controls.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!--Call to Action-- >
+                <div class="card"
+                    style="background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%); padding: 3rem; border-radius: 12px; text-align: center; margin-top: 3rem; border: 1px solid var(--accent-cyan);">
+                    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; color: #ffffff;">
+                        💪 Stay Protected
+                    </h2>
+                    <p style="color: #e0f2fe; margin-bottom: 2rem; font-size: 1.1rem;">
+                        Knowledge is your first line of defense. Train regularly, stay informed, and always verify before you trust.
+                    </p>
+                    <a href="{{ url_for('learning.learning_path_index') }}" class="nav-btn-accent"
+                        style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 0.75rem 2rem; border-radius: 20px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);">
+                        Continue Your Training →
+                    </a>
+                </div>
+</div >
+
+< !--Sources & Methodology-- >
+<div class="container" style="padding: 2rem 0; max-width: 1400px; margin-top: 2rem;">
+    <div class="card"
+        style="background: var(--bg-card); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #ffffff; text-align: center;">
+            📚 Sources & References
+        </h2>
+        <p style="color: var(--text-secondary); text-align: center; margin-bottom: 2rem;">
+            All statistics are from authoritative cybersecurity research organizations and reports
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📊</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">IBM Security</div>
+                <a href="https://www.ibm.com/reports/data-breach" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Cost of a Data Breach
+                    Report 2024 →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🔐</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">Verizon</div>
+                <a href="https://www.verizon.com/business/resources/reports/dbir/" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Data Breach
+                    Investigations Report →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">₿</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">Chainalysis</div>
+                <a href="https://www.chainalysis.com/blog/crypto-crime-report" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Crypto Crime Report
+                    2024 →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🌐</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">Cybersecurity Ventures</div>
+                <a href="https://cybersecurityventures.com/" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Annual Cybercrime
+                    Report →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🎓</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">University of Maryland</div>
+                <a href="https://eng.umd.edu" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">Clark School Research
+                    →</a>
+            </div>
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📈</div>
+                <div style="font-weight: 600; color: #ffffff; margin-bottom: 0.5rem;">Gartner</div>
+                <a href="https://www.gartner.com/en/information-technology" target="_blank" rel="noopener"
+                    style="color: var(--accent-cyan); font-size: 0.875rem; text-decoration: none;">IT Research &
+                    Advisory →</a>
+            </div>
+        </div>
+        <p style="color: #64748b; text-align: center; margin-top: 2rem; font-size: 0.875rem;">
+            Last updated: December 2024 | Data reflects 2023-2024 reporting periods
+        </p>
+    </div>
+</div>
+
+<script>
+    // Shocking Facts Carousel
+    const facts = [
+        {
+            text: "A ransomware attack occurs every 11 seconds globally",
+            source: "Cybersecurity Ventures 2024"
+        },
+        {
+            text: "The average ransom demand reached $1.54 million in 2023",
+            source: "Palo Alto Networks Unit 42"
+        },
+        {
+            text: "95% of cybersecurity breaches are caused by human error",
+            source: "World Economic Forum 2023"
+        },
+        {
+            text: "It takes an average of 9 months to detect a data breach",
+            source: "IBM Security Report 2024"
+        },
+        {
+            text: "Phishing attacks increased 61% in 2023 compared to 2022",
+            source: "Zscaler ThreatLabz 2024"
+        }
+    ];
+
+    let currentFact = 0;
+
+    function showFact(index) {
+        currentFact = index;
+        document.getElementById('fact-text').textContent = facts[index].text;
+        document.getElementById('fact-source').textContent = facts[index].source;
+
+        // Update dots
+        for (let i = 0; i < 5; i++) {
+            const dot = document.getElementById(`dot-${i}`);
+            dot.style.background = i === index ? '#10b981' : '#065f46';
+        }
+    }
+
+    function nextFact() {
+        currentFact = (currentFact + 1) % facts.length;
+        showFact(currentFact);
+    }
+
+    function previousFact() {
+        currentFact = (currentFact - 1 + facts.length) % facts.length;
+        showFact(currentFact);
+    }
+
+    // Auto-rotate facts every 5 seconds
+    setInterval(() => {
+        currentFact = (currentFact + 1) % facts.length;
+        showFact(currentFact);
+    }, 5000);
+</script>
+{% endblock %}

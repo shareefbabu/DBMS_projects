@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+
+{% block title %}Training Scenario - SE Simulator{% endblock %}
+
+{% block content %}
+<style>
+    .scenario-container {
+        max-width: 100%;
+        margin: 0 auto;
+        background: #111111;
+        /* Deep Charcoal - Classy & Different from Navy */
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .scenario-header {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        border: 1px solid #334155;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .scenario-header h1 {
+        color: #e2e8f0;
+        font-size: 1.875rem;
+        margin-bottom: 1rem;
+    }
+
+    .scenario-badge {
+        display: inline-block;
+        background: rgba(6, 182, 212, 0.12);
+        color: #06b6d4;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+
+    .scenario-content {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 2.5rem;
+    }
+
+    .scenario-text {
+        margin-bottom: 2.5rem;
+    }
+
+    .scenario-text h3 {
+        color: #e2e8f0;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .scenario-description {
+        color: #94a3b8;
+        font-size: 1.125rem;
+        line-height: 1.7;
+        padding: 1.5rem;
+        background: rgba(6, 182, 212, 0.05);
+        border-left: 4px solid #06b6d4;
+        border-radius: 6px;
+    }
+
+    .response-section {
+        margin-bottom: 2rem;
+    }
+
+    .response-section h3 {
+        color: #e2e8f0;
+        font-size: 1.125rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .instruction {
+        color: #94a3b8;
+        margin-bottom: 1.5rem;
+    }
+
+    .button-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .btn-option {
+        padding: 1.25rem 2rem;
+        font-size: 1.125rem;
+        font-weight: 600;
+        border: 2px solid #334155;
+        background: linear-gradient(135deg, #1a1f3a 0%, #0f172a 100%);
+        color: #e2e8f0;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-option:hover {
+        border-color: #06b6d4;
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+    }
+
+    .btn-option:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .feedback-section {
+        margin-top: 2rem;
+        padding: 2rem;
+        background: rgba(6, 182, 212, 0.05);
+        border-radius: 8px;
+        border: 1px solid #334155;
+    }
+
+    #feedback-content {
+        margin-bottom: 1.5rem;
+    }
+
+    .feedback-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .btn {
+        padding: 0.875rem 2rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-primary {
+        background: #06b6d4;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #0891b2;
+    }
+
+    .btn-secondary {
+        background: #334155;
+        color: #e2e8f0;
+    }
+
+    .btn-secondary:hover {
+        background: #475569;
+    }
+
+    .result-correct {
+        background: rgba(16, 185, 129, 0.1);
+        border: 2px solid #10b981;
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+
+    .result-incorrect {
+        background: rgba(239, 68, 68, 0.1);
+        border: 2px solid #ef4444;
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+
+    .result-correct h2 {
+        color: #10b981;
+        margin-bottom: 1rem;
+    }
+
+    .result-incorrect h2 {
+        color: #ef4444;
+        margin-bottom: 1rem;
+    }
+
+    .result-correct p,
+    .result-incorrect p {
+        color: #e2e8f0;
+        margin-bottom: 0.75rem;
+    }
+
+    .result-correct strong,
+    .result-incorrect strong {
+        color: #e2e8f0;
+    }
+
+    @media (max-width: 768px) {
+        .button-group {
+            grid-template-columns: 1fr;
+        }
+
+        .feedback-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="scenario-container">
+    <div class="scenario-header">
+        <h1>Training Scenario: {{ scenario_type }}</h1>
+        <div class="scenario-badge">Type: {{ scenario_type }}</div>
+    </div>
+
+    <div class="scenario-content">
+        <div class="scenario-text">
+            <h3>Scenario:</h3>
+            <p class="scenario-description">{{ scenario.scenario_description }}</p>
+        </div>
+
+        <div class="response-section">
+            <h3>Your Assessment:</h3>
+            <p class="instruction">
+                {% if options %}
+                What is the most appropriate action?
+                {% else %}
+                Is this a legitimate communication or a social engineering attack?
+                {% endif %}
+            </p>
+
+            <div class="button-group">
+                {% if options %}
+                {% for option in options %}
+                <button class="btn-option" data-response="{{ option }}">
+                    {{ option }}
+                </button>
+                {% endfor %}
+                {% else %}
+                <!-- Legacy Binary Options -->
+                <button class="btn-option" data-response="Legitimate">
+                    ✅ Legitimate
+                </button>
+                <button class="btn-option" data-response="Suspicious">
+                    ⚠️ Suspicious/Attack
+                </button>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="feedback-section" class="feedback-section" style="display: none;">
+            <div id="feedback-content"></div>
+            <div class="feedback-actions">
+                <button class="btn btn-primary" onclick="location.href='{{ url_for('main.get_scenario') }}'">Next
+                    Scenario</button>
+                <button class="btn btn-secondary" onclick="location.href='{{ url_for('main.dashboard') }}'">Back to
+                    Dashboard</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const scenarioId = {{ scenario.scenario_id }};
+    const startTime = Date.now();
+
+    document.querySelectorAll('.btn-option').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const userResponse = this.dataset.response;
+            const responseTime = Math.floor((Date.now() - startTime) / 1000);
+
+            // Disable buttons after selection
+            document.querySelectorAll('.btn-option').forEach(b => b.disabled = true);
+
+            // Submit response
+            fetch('/submit-response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    scenario_id: scenarioId,
+                    response: userResponse,
+                    response_time: responseTime
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Show feedback
+                    const feedbackSection = document.getElementById('feedback-section');
+                    const feedbackContent = document.getElementById('feedback-content');
+
+                    const resultClass = data.correct ? 'result-correct' : 'result-incorrect';
+                    const resultIcon = data.correct ? '✅' : '❌';
+                    const resultText = data.correct ? 'Correct!' : 'Incorrect';
+
+                    let feedbackHTML = `
+                <div class="${resultClass}">
+                    <h2>${resultIcon} ${resultText}</h2>
+                    <p><strong>Your Answer:</strong> ${userResponse}</p>
+                    <p><strong>Explanation:</strong> ${data.explanation}</p>
+                    <p><strong>Points Earned:</strong> ${data.score_gained}</p>
+                    <p><strong>Total Score:</strong> ${data.total_score}</p>
+                </div>
+            `;
+
+                    // Add micro-lesson recommendation if present
+                    if (data.recommended_lesson) {
+                        const lesson = data.recommended_lesson;
+                        feedbackHTML += `
+                    <div style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(245, 158, 11, 0.1); border: 2px solid #f59e0b; border-radius: 8px; animation: fadeIn 0.5s;">
+                        <h3 style="color: #f59e0b; margin-bottom: 0.5rem; font-size: 1.25rem;">📚 Recommended Micro-Lesson</h3>
+                        <p style="color: #e2e8f0; margin-bottom: 0.5rem; font-size: 1.1rem;">${lesson.title}</p>
+                        <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem;">⏱️ ${lesson.est_time} minutes • Learn why you missed this!</p>
+                        <div style="display: flex; gap: 1rem;">
+                            <a href="/lesson/${lesson.lesson_id}" class="btn btn-primary" style="background: #f59e0b; border: none; width: auto; display: inline-block;">Start Lesson</a>
+                        </div>
+                    </div>
+                `;
+                    }
+
+                    feedbackContent.innerHTML = feedbackHTML;
+                    feedbackSection.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                    document.querySelectorAll('.btn-option').forEach(b => b.disabled = false);
+                });
+        });
+    });
+</script>
+{% endblock %}

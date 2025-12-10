@@ -1,0 +1,458 @@
+{% extends "base.html" %}
+
+{% block title %}Security Readiness Dashboard - SE Simulator{% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+    /* Dashboard Grid Layout */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    /* Common Card Style */
+    .dash-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dash-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--border-accent);
+    }
+
+    .dash-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .dash-card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Column Spans */
+    .col-span-3 {
+        grid-column: span 3;
+    }
+
+    .col-span-4 {
+        grid-column: span 4;
+    }
+
+    .col-span-6 {
+        grid-column: span 6;
+    }
+
+    .col-span-8 {
+        grid-column: span 8;
+    }
+
+    .col-span-9 {
+        grid-column: span 9;
+    }
+
+    .col-span-12 {
+        grid-column: span 12;
+    }
+
+    /* Stats Cards - Compact */
+    .stat-card {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .stat-icon-wrapper {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+    }
+
+    /* Activity List */
+    .activity-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .activity-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+        transition: background 0.2s;
+    }
+
+    .activity-item:hover {
+        background: var(--bg-tertiary);
+    }
+
+    .activity-item:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Welcome Header Refined */
+    .welcome-header {
+        background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+        border: 1px solid rgba(6, 182, 212, 0.2);
+        padding: 3rem;
+        border-radius: 16px;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .welcome-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(6, 182, 212, 0.15), transparent 70%);
+        pointer-events: none;
+    }
+
+    /* Chart Container */
+    .chart-container {
+        position: relative;
+        height: 250px;
+        width: 100%;
+    }
+
+    /* Buttons */
+    .btn-action {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none !important;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary-glow {
+        background: var(--accent-cyan);
+        color: #fff !important;
+        box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        border: 1px solid var(--border-accent);
+        color: var(--text-primary) !important;
+    }
+
+    .btn-action:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 1200px) {
+        .col-span-3 {
+            grid-column: span 6;
+        }
+
+        .col-span-9 {
+            grid-column: span 12;
+        }
+    }
+
+    @media (max-width: 768px) {
+
+        .col-span-3,
+        .col-span-4,
+        .col-span-6,
+        .col-span-8 {
+            grid-column: span 12;
+        }
+    }
+
+    /* Entrance Animations */
+    @keyframes floatIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-enter {
+        animation: floatIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        opacity: 0;
+    }
+
+    /* Simultaneous floats - No delays */
+    .delay-100,
+    .delay-200,
+    .delay-300,
+    .delay-400,
+    .delay-500 {
+        animation-delay: 0s !important;
+    }
+
+    .delay-400 {
+        animation-delay: 0.2s;
+    }
+
+    .delay-500 {
+        animation-delay: 0.25s;
+    }
+
+    .delay-400 {
+        animation-delay: 0.4s;
+    }
+
+    .delay-500 {
+        animation-delay: 0.5s;
+    }
+</style>
+
+<div class="container" style="padding: 2rem; max-width: 1600px;">
+    <!-- Welcome Header -->
+    <div class="welcome-header animate-enter">
+        <div style="position: relative; z-index: 1;">
+            <div
+                style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.02em;">
+                        Welcome back, <span
+                            style="background: linear-gradient(to right, var(--accent-cyan), var(--accent-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{{
+                            user.username }}</span>
+                    </h1>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px;">
+                        Your security posture is <strong>{{ 'Solid' if accuracy > 80 else 'Improving' }}</strong>.
+                        You've completed {{ total_responses }} simulations. Keep pushing!
+                    </p>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    {% if user.subscription_tier == 'pro' or user.is_admin %}
+                    <a href="{{ url_for('main.get_scenario') }}?type=IncidentResponse" class="btn-action btn-secondary"
+                        style="border-color: var(--accent-amber); color: var(--accent-amber); background: rgba(245, 158, 11, 0.05);">
+                        ⚡ Incident Drill
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('payment.upgrade') }}" class="btn-action btn-secondary"
+                        style="border-color: var(--border-subtle); color: var(--text-muted) !important; background: rgba(255, 255, 255, 0.02);">
+                        🔒 Drill (Pro)
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('main.get_scenario', type='DigitalPayment') }}" class="btn-action btn-secondary"
+                        style="border-color: var(--accent-green); color: var(--accent-green) !important; background: rgba(16, 185, 129, 0.05);">
+                        💳 Payment Drill
+                    </a>
+                    <a href="{{ url_for('main.get_scenario') }}" class="btn-action btn-primary-glow"
+                        style="padding: 0.75rem 2rem; font-size: 1.1rem;">
+                        🚀 Start Simulation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="dashboard-grid">
+
+        <!-- Left Column: Stats & Chart -->
+        <div class="col-span-8" style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+            <!-- Quick Stats Row -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                <!-- Score -->
+                <div class="dash-card stat-card animate-enter delay-100">
+                    <div class="stat-icon-wrapper"
+                        style="background: rgba(16, 185, 129, 0.1); color: var(--accent-green);">🏆</div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700;">{{ user.total_score }}</div>
+                        <div
+                            style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+                            Total XP</div>
+                    </div>
+                </div>
+                <!-- Accuracy -->
+                <div class="dash-card stat-card animate-enter delay-200">
+                    <div class="stat-icon-wrapper"
+                        style="background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan);">🎯</div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700;">{{ accuracy }}%</div>
+                        <div
+                            style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+                            Accuracy</div>
+                    </div>
+                </div>
+                <!-- Badge Count -->
+                <div class="dash-card stat-card animate-enter delay-300">
+                    <div class="stat-icon-wrapper"
+                        style="background: rgba(245, 158, 11, 0.1); color: var(--accent-amber);">🎖️</div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700;">{{ achievements|length }}</div>
+                        <div
+                            style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+                            Badges</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Chart -->
+            <div class="dash-card animate-enter delay-400">
+                <div class="dash-card-header">
+                    <div class="dash-card-title">
+                        <span style="color: var(--accent-cyan);">📈</span> Performance Trend
+                    </div>
+                    <select
+                        style="background: var(--bg-primary); border: 1px solid var(--border-subtle); color: var(--text-secondary); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">
+                        <option>Last 7 Days</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Recent Activity & Badges -->
+        <div class="col-span-4 animate-enter delay-500" style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+            <!-- Recent Activity List -->
+            <div class="dash-card" style="flex: 1;">
+                <div class="dash-card-header">
+                    <div class="dash-card-title">
+                        <span style="color: var(--accent-cyan);">📋</span> Recent Activity
+                    </div>
+                    <a href="{{ url_for('main.progress') }}"
+                        style="font-size: 0.85rem; color: var(--accent-cyan); text-decoration: none;">View All</a>
+                </div>
+
+                {% if recent_activity %}
+                <ul class="activity-list">
+                    {% for activity in recent_activity %}
+                    <li class="activity-item">
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <div
+                                style="width: 8px; height: 8px; border-radius: 50%; background: {{ 'var(--accent-green)' if activity.is_correct else 'var(--accent-red)' }}; box-shadow: 0 0 8px {{ 'var(--accent-green)' if activity.is_correct else 'var(--accent-red)' }};">
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; font-size: 0.95rem;">{{ activity.scenario.scenario_type }}
+                                </div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">{{
+                                    activity.timestamp.strftime('%b %d, %H:%M') }}</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <span
+                                style="display: block; font-size: 0.85rem; font-weight: 600; color: {{ 'var(--accent-green)' if activity.is_correct else 'var(--accent-red)'}};">
+                                {{ 'Passed' if activity.is_correct else 'Failed' }}
+                            </span>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">
+                                {{ '+10' if activity.is_correct else '+0' }} XP
+                            </span>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                    No recent activity.
+                    <br><br>
+                    <a href="{{ url_for('main.get_scenario') }}" style="color: var(--accent-cyan);">Start your first
+                        drill!</a>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Activity Chart
+    const ctx = document.getElementById('activityChart').getContext('2d');
+
+    // Gradient
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(6, 182, 212, 0.2)');
+    gradient.addColorStop(1, 'rgba(6, 182, 212, 0)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ activity_chart.labels | tojson }},
+        datasets: [{
+            label: 'Scenarios Completed',
+            data: {{ activity_chart.data | tojson }},
+        borderColor: '#06b6d4',
+        backgroundColor: gradient,
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointBackgroundColor: '#06b6d4',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#06b6d4'
+            }]
+        },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: '#1e293b',
+                titleColor: '#f3f4f6',
+                bodyColor: '#94a3b8',
+                borderColor: '#334155',
+                borderWidth: 1,
+                padding: 10,
+                displayColors: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: '#1e293b' },
+                ticks: { color: '#64748b', precision: 0 }
+            },
+            x: {
+                grid: { display: false },
+                ticks: { color: '#64748b' }
+            }
+        }
+    }
+    });
+</script>
+{% endblock %}

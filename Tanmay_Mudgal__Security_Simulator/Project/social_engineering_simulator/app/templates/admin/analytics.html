@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="container" style="padding: 2rem 0;">
+    <h1 style="margin-bottom: 2rem;">Platform Analytics</h1>
+
+    <!-- Overview Cards -->
+    <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <div class="card"
+            style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+            <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0.5rem;">Total Users</div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-cyan);">{{ stats.total_users }}</div>
+        </div>
+        <div class="card"
+            style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+            <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0.5rem;">Total Scenarios</div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-cyan);">{{ stats.total_scenarios }}</div>
+        </div>
+        <div class="card"
+            style="background: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+            <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0.5rem;">Total Responses</div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-cyan);">{{ stats.total_responses }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+        <!-- User Registration Chart -->
+        <div class="card"
+            style="background: var(--bg-card); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+            <h3 style="margin-bottom: 1.5rem; color: #ffffff;">User Growth (Last 7 Days)</h3>
+            <div style="position: relative; height: 300px; width: 100%;">
+                <canvas id="registrationChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Organization Distribution Chart -->
+        <div class="card"
+            style="background: var(--bg-card); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+            <h3 style="margin-bottom: 1.5rem; color: #ffffff;">Users by Organization</h3>
+            <div style="position: relative; height: 300px; width: 100%; display: flex; justify-content: center;">
+                <canvas id="orgChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Chart Defaults - Use brighter colors for better visibility
+    Chart.defaults.color = '#cbd5e1';
+    Chart.defaults.borderColor = '#334155';
+
+    // Registration Chart
+    const regCtx = document.getElementById('registrationChart').getContext('2d');
+    new Chart(regCtx, {
+        type: 'line',
+        data: {
+            labels: {{ registration_chart_data.labels | tojson }},
+        datasets: [{
+            label: 'New Users',
+            data: {{ registration_chart_data.data | tojson }},
+        borderColor: '#06b6d4',
+        backgroundColor: 'rgba(6, 182, 212, 0.1)',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true
+            }]
+        },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: { precision: 0 }
+            }
+        }
+    }
+    });
+
+    // Organization Chart
+    const orgCtx = document.getElementById('orgChart').getContext('2d');
+    new Chart(orgCtx, {
+        type: 'doughnut',
+        data: {
+            labels: {{ org_chart_data.labels | tojson }},
+        datasets: [{
+            data: {{ org_chart_data.data | tojson }},
+        backgroundColor: [
+            '#06b6d4', '#3b82f6', '#8b5cf6', '#ec4899', '#f43f5e', '#f59e0b'
+        ],
+        borderWidth: 0
+            }]
+        },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'right',
+                labels: { boxWidth: 12 }
+            }
+        }
+    }
+    });
+</script>
+{% endblock %}

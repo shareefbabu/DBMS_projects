@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}My Badges - SE Simulator{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1>My Achievements</h1>
+            <p class="text-white">Earn badges by completing modules and mastering scenarios.</p>
+        </div>
+    </div>
+
+    {% if badges %}
+    <div class="row">
+        {% for badge in badges %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 text-center p-3 badge-card tier-{{ badge.tier|lower if badge.tier else 'gold' }}">
+                <div class="badge-icon mb-3" style="font-size: 3rem;">
+                    🏆
+                </div>
+                <h5 class="card-title">{{ badge.achievement_name }}</h5>
+                <p class="card-text small text-muted">{{ badge.criteria_met }}</p>
+                <div class="badge-date small text-muted">
+                    Earned: {{ badge.earned_date.strftime('%Y-%m-%d') }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <div style="font-size: 4rem; opacity: 0.5; margin-bottom: 1rem;">🔒</div>
+        <h3>No Badges Yet</h3>
+        <p>Complete learning modules and scenarios to earn your first badge!</p>
+        <a href="{{ url_for('learning.learning_path_index') }}" class="btn btn-primary mt-3">Go to Learning Path</a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    /* Tier Colors */
+    :root {
+        --tier-bronze: #cd7f32;
+        --tier-silver: #e2e8f0;
+        --tier-gold: #fbbf24;
+        --tier-platinum: #22d3ee;
+    }
+
+    .badge-card {
+        transition: transform 0.2s;
+        border: 1px solid var(--border-subtle);
+        background: var(--bg-card);
+        color: #fff;
+        /* Force white text by default */
+        box-shadow: var(--shadow-md);
+    }
+
+    .badge-card .card-title {
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Dynamic Tier Coloring based on content logic or classes */
+    .tier-gold .card-title,
+    .tier-gold .badge-icon {
+        color: var(--tier-gold);
+    }
+
+    .tier-silver .card-title,
+    .tier-silver .badge-icon {
+        color: var(--tier-silver);
+    }
+
+    .tier-bronze .card-title,
+    .tier-bronze .badge-icon {
+        color: var(--tier-bronze);
+    }
+
+    .tier-platinum .card-title,
+    .tier-platinum .badge-icon {
+        color: var(--tier-platinum);
+    }
+
+    .badge-card .text-muted {
+        color: #94a3b8 !important;
+        /* Lighter gray for visibility */
+    }
+
+    .badge-card:hover {
+        transform: translateY(-5px);
+        background: var(--bg-tertiary);
+        border-color: var(--accent-cyan);
+        box-shadow: var(--shadow-lg);
+    }
+</style>
+{% endblock %}
