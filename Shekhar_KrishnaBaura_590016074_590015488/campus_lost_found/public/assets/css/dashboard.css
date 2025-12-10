@@ -1,0 +1,222 @@
+/* dashboard.css */
+
+:root{
+  --bg:#f6f7fb;
+  --card:#fff;
+  --accent:#2b6cb0;
+  --muted:#6b7280;
+  --radius:8px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:var(--bg);
+  font-family:Arial,Helvetica,sans-serif;
+  color:#222;
+  line-height:1.4;
+  padding:20px;
+}
+
+.page-wrap{
+  max-width:1100px;
+  margin:0 auto;
+}
+
+/* header */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+header h1{
+  font-size:24px;
+  font-weight:800;
+  color:#111827;
+}
+
+.welcome-text{
+  font-size:14px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.header-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+/* header buttons */
+/* header buttons (primary / secondary / danger) */
+.header-actions .btn-header{
+  padding:8px 12px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+  display:inline-block;
+  transition:background .15s ease, transform .1s ease, box-shadow .1s ease;
+}
+
+/* primary: Manage Items */
+.btn-header.primary{
+  background:var(--accent);
+  color:#fff;
+}
+
+.btn-header.primary:hover{
+  background:#1e58a1;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.20);
+}
+
+/* secondary: Manage Claims, Audit Logs */
+.btn-header.secondary{
+  background:#4a5568;
+  color:#fff;
+}
+
+.btn-header.secondary:hover{
+  background:#2d3748;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.20);
+}
+
+/* danger: Logout */
+.btn-header.danger{
+  background:#e53e3e;
+  color:#fff;
+}
+
+.btn-header.danger:hover{
+  background:#c53030;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.20);
+}
+
+/* summary cards */
+.card-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.card-small{
+  background:var(--card);
+  padding:18px;
+  border-radius:var(--radius);
+  flex:1 1 220px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+
+.card-label{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.card-value{
+  font-size:22px;
+  font-weight:700;
+  color:#111827;
+}
+
+/* table section */
+.table-wrap{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:18px 20px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+
+.section-title{
+  margin-bottom:10px;
+  font-size:16px;
+  font-weight:700;
+  color:#111827;
+}
+
+/* table styling */
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+
+thead{
+  background:#f3f4f6;
+}
+
+th, td{
+  padding:8px 10px;
+  text-align:left;
+  border-bottom:1px solid #e5e7eb;
+}
+
+th{
+  font-weight:600;
+  color:#4b5563;
+}
+
+tbody tr:hover{
+  background:#f9fafb;
+}
+
+.muted-cell{
+  text-align:center;
+  color:var(--muted);
+  font-style:italic;
+}
+
+/* back to portal button */
+.back{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:16px;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#e5edf7;
+  color:#1f2937;
+  font-size:14px;
+  font-weight:600;
+  text-decoration:none;
+  border:1px solid #cbd5e1;
+  transition:
+    background .15s ease,
+    transform .1s ease,
+    box-shadow .1s ease,
+    color .15s ease;
+}
+
+.back:hover{
+  background:#d0e2ff;
+  color:#111827;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.12);
+}
+
+/* responsive */
+@media(max-width:720px){
+  header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .header-actions{
+    margin-top:4px;
+  }
+
+  .card-row{
+    flex-direction:column;
+  }
+}

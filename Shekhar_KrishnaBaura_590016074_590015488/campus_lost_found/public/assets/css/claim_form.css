@@ -1,0 +1,223 @@
+/* claim_form.css */
+
+:root{
+  --bg:#f6f7fb;
+  --card:#fff;
+  --accent:#2b6cb0;
+  --muted:#6b7280;
+  --danger:#e53e3e;
+  --field-border:#d1d5db;
+  --radius:8px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  font-family:Arial,Helvetica,sans-serif;
+  color:#222;
+  line-height:1.4;
+  padding:20px;
+}
+
+/* container */
+.container{max-width:760px;margin:0 auto}
+
+/* back link */
+.back{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:16px;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#e5edf7;
+  color:#1f2937;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  border:1px solid #cbd5e1;
+  transition:background .15s ease, transform .1s ease, box-shadow .1s ease, color .15s ease;
+}
+
+.back:hover{
+  background:#d0e2ff;
+  color:#111827;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.12);
+}
+
+/* card */
+.card{
+  background:var(--card);
+  padding:18px;
+  border-radius:var(--radius);
+  box-shadow:0 2px 10px rgba(2,6,23,0.06);
+}
+
+/* top area with thumb + title */
+.card > div[style]{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.thumb{width:140px;height:100px;overflow:hidden;border-radius:6px;flex:0 0 auto}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card h2{font-size:18px;margin-bottom:6px}
+.muted{color:var(--muted);font-size:13px}
+
+/* errors */
+.errors{
+  background:#ffeef0;
+  color:#7f1d1d;
+  padding:10px;
+  border-radius:6px;
+  margin:10px 0;
+}
+
+/* form layout */
+form{display:grid;gap:10px;margin-top:6px}
+label{font-weight:600;font-size:13px;margin-bottom:4px;display:block}
+/* === Form fields (text, date, textarea, file) === */
+input[type="text"],
+input[type="date"],
+textarea,
+input[type="file"]{
+  width:100%;
+  padding:10px 12px;
+  font-size:14px;
+  border:1px solid var(--field-border);
+  border-radius:6px;
+  background:#fff;
+  color:#111827;
+  font-family:inherit;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+
+/* Better textarea UX */
+textarea{
+  resize:vertical;
+  min-height:90px;
+}
+
+/* Field focus highlight (blue outline like your accent) */
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+input[type="file"]:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px rgba(43,108,176,0.15);
+}
+
+/* === File input: style the Choose file button === */
+input[type="file"]{
+  padding:8px; /* create space for the custom button */
+}
+
+/* The actual file button */
+input[type="file"]::file-selector-button{
+  padding:8px 14px;
+  margin-right:8px;
+  border-radius:999px;
+  border:1px solid var(--field-border);
+  background:#f9fafb;
+  color:#1f2937;
+  font-weight:500;
+  cursor:pointer;
+  transition:
+    background .15s ease,
+    border-color .15s ease,
+    box-shadow .15s ease,
+    transform .1s ease;
+}
+
+/* File button hover */
+input[type="file"]::file-selector-button:hover{
+  background:#e5edf7;
+  border-color:var(--accent);
+  box-shadow:0 3px 8px rgba(15,23,42,0.15);
+  transform:translateY(-1px);
+}
+textarea{resize:vertical;min-height:90px}
+
+/* buttons row */
+.row-actions{display:flex;gap:10px;align-items:center;margin-top:8px}
+.btn{
+  padding:10px 16px;
+  border-radius:999px;
+  background:var(--accent);
+  color:#fff;
+  text-decoration:none;
+  border:none;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  transition:background .15s ease, transform .1s ease, box-shadow .1s ease;
+}
+
+.btn:hover{
+  background:#2c5282;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(37,99,235,0.3);
+}
+
+.btn.secondary{
+  background:#4a5568;
+}
+
+.btn.secondary:hover{
+  background:#2d3748;
+}
+
+.btn[disabled]{
+  opacity:.6;
+  cursor:not-allowed;
+  box-shadow:none;
+  transform:none;
+}
+
+/* small helpers */
+.small{font-size:13px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin-top:6px}
+
+/* form field layout */
+.form-field{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+/* error text (hidden by default) */
+.field-error{
+  height:16px;
+  font-size:12px;
+  color:#e53e3e;
+  font-weight:500;
+  opacity:0;
+  transition:opacity .15s ease;
+}
+
+/* error input border */
+input.error{
+  border-color:#e53e3e !important;
+  box-shadow:0 0 0 2px rgba(229,62,62,0.18);
+}
+
+/* show error text when error is present */
+input.error + .field-error{
+  opacity:1;
+}
+
+/* button grayed look by default */
+.btn{
+  opacity:0.6;
+}
+
+/* when valid → normal look (JS will add class) */
+.btn.active{
+  opacity:1;
+}
+
+
+/* responsive */
+@media (max-width:640px){
+  .thumb{width:110px;height:80px}
+  .container{padding:0 12px}
+}

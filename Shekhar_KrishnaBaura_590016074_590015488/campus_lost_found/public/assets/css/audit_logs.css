@@ -1,0 +1,255 @@
+/* audit_logs.css */
+
+:root{
+  --bg:#f6f7fb;
+  --card:#fff;
+  --accent:#2b6cb0;
+  --muted:#6b7280;
+  --radius:8px;
+  --table-border:#eef2f7;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:var(--bg);
+  font-family:Arial,Helvetica,sans-serif;
+  color:#222;
+  line-height:1.4;
+  padding:20px;
+}
+
+/* top-left back button */
+.back{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:16px;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#e5edf7;
+  color:#1f2937;
+  font-size:14px;
+  font-weight:600;
+  text-decoration:none;
+  border:1px solid #cbd5e1;
+  transition:
+    background .15s ease,
+    transform .1s ease,
+    box-shadow .1s ease,
+    color .1s ease;
+}
+
+.back:hover{
+  background:#d0e2ff;
+  color:#111827;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.12);
+}
+
+/* header */
+header{
+  max-width:1100px;
+  margin:6px auto 20px auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+header h1{
+  font-size:24px;
+  font-weight:800;
+}
+
+.small{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* filter/search row */
+.filter-box{
+  max-width:1100px;
+  margin:0 auto 14px auto;
+}
+
+.filter-form{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.filter-form label{
+  min-width:120px;
+}
+
+/* modern dropdown */
+.filter-box select{
+  padding:8px 40px 8px 12px;
+  border-radius:999px;
+  border:1px solid #d1d5db;
+  font-size:14px;
+  background:#fff;
+  color:#111827;
+  outline:none;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+
+  /* cleaner custom arrow + separator line */
+  background-image:
+    linear-gradient(45deg, transparent 50%, #6b7280 50%),
+    linear-gradient(135deg, #6b7280 50%, transparent 50%),
+    linear-gradient(to right, #d1d5db, #d1d5db);
+  background-position:
+    calc(100% - 16px) center,
+    calc(100% - 11px) center,
+    calc(100% - 2.5em) center;
+  background-size:
+    6px 6px,
+    6px 6px,
+    1px 60%;
+  background-repeat:no-repeat;
+
+  transition:border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+
+.filter-box select:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px rgba(43,108,176,0.15);
+}
+
+.filter-box select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px rgba(43,108,176,0.15);
+}
+
+
+
+/* filter buttons */
+.btn{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:999px;
+  border:none;
+  background:var(--accent);
+  color:#fff;
+  font-weight:600;
+  font-size:14px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background .15s ease, transform .1s ease, box-shadow .1s ease;
+}
+
+.btn:hover{
+  background:#1e4f8b;
+  transform:translateY(-1px);
+  box-shadow:0 3px 8px rgba(15,23,42,0.2);
+}
+
+.btn-secondary{
+  background:#4a5568;
+}
+
+.btn-secondary:hover{
+  background:#2d3748;
+}
+
+/* audit table */
+.table-wrap{
+  max-width:1100px;
+  margin:0 auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+
+th{
+  background:#f1f5f9;
+  font-weight:700;
+  padding:12px 10px;
+  font-size:14px;
+  border-bottom:1px solid var(--table-border);
+  text-align:left;
+}
+
+td{
+  padding:12px 10px;
+  font-size:14px;
+  border-bottom:1px solid var(--table-border);
+  color:#333;
+  vertical-align:top;
+}
+
+tbody tr:hover{
+  background:#f9fafb;
+}
+
+.time-cell{
+  white-space:nowrap;
+}
+
+.empty-row{
+  text-align:center;
+}
+
+/* action colors */
+.action-added{
+  color:#1e40af;
+  font-weight:700;
+}
+
+.action-updated{
+  color:#2b6cb0;
+  font-weight:700;
+}
+
+.action-claim{
+  color:#38a169;
+  font-weight:700;
+}
+
+.action-reject{
+  color:#e53e3e;
+  font-weight:700;
+}
+
+/* pagination or footer spacing if present */
+.footer-space{
+  height:20px;
+}
+
+/* responsive */
+@media(max-width:700px){
+  header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .filter-form{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .filter-form label{
+    min-width:0;
+  }
+}

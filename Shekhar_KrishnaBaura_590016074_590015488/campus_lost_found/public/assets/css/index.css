@@ -1,0 +1,247 @@
+:root{
+  --banner-height: 84px;
+  --brand-dark: #0f172a;
+  --brand-mid:  #1e3a8a;
+  --accent:     #2b6cb0;
+  --muted:      #6b7280;
+  --card-bg:    #ffffff;
+  --page-bg:    #f6f7fb;
+  --gap:        16px;
+}
+
+/* WebKit scrollbar */
+::-webkit-scrollbar {
+  width: 0px; /* thicker pill */
+}
+
+
+
+/* page base */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body {
+  background:var(--page-bg);
+  color:#222;
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.4;
+  padding:20px;
+  padding-top: calc(var(--banner-height) + 20px);
+}
+
+
+/* fixed full-width banner */
+.top-banner{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--banner-height);
+  background: linear-gradient(90deg,var(--brand-dark),var(--brand-mid));
+  color:#fff;
+  padding: 12px 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+/* content inside banner kept centered but spans full width */
+.top-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  width:100%;
+  margin:0;
+  padding:0 16px;
+}
+
+/* BANNER AREA */
+.banner-wrap{
+  overflow:hidden;                 /* keep items inside banner */
+  background: var(--card-bg);
+  border-radius:8px;
+  padding:24px 16px;               /* more top/bottom padding = taller background */
+  margin:18px 0;
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+  position: relative;
+  z-index: 1;
+}
+
+/* track styles */
+#bannerTrack{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  will-change:transform;
+}
+
+/* banner items */
+.banner-item{
+  flex:0 0 auto;
+  width:220px;
+  height:140px;
+  border-radius:6px;
+  overflow:hidden;                 /* image stays inside card */
+  background:#eee;
+  position: relative;
+}
+.banner-item:hover {
+  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+}
+
+
+.banner-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover zoom – zooms inside banner, not outside */
+.banner-item:hover img {
+  transform: scale(1.08) translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+  border-radius: 6px;
+}
+
+
+/* logo + title */
+.brand-logo{height:48px;width:auto;display:block;object-fit:contain}
+.title-wrap{flex:1;text-align:center}
+.title-wrap .site-sub{
+  font-size:12px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-weight:700;
+  color:rgba(255,255,255,0.9)
+}
+.title-wrap .site-main{
+  font-size:20px;
+  font-weight:800;
+  color:#fff;
+  line-height:1
+}
+.login-wrap{flex:0 0 auto}
+.admin-login{
+  width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#fff;color:var(--brand-mid);text-decoration:none;
+  box-shadow:0 6px 14px rgba(2,6,23,0.12);transition:transform .12s ease,box-shadow .12s ease
+}
+.admin-login:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(2,6,23,0.18)}
+.admin-login svg{display:block;color:var(--brand-mid)}
+
+.page-main{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 18px 28px;
+}
+
+/* grid of item cards */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:var(--gap);
+  margin-top:6px
+}
+.card{
+  background:var(--card-bg);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+  display:flex;
+  flex-direction:column;
+  transition: box-shadow .15s ease, transform .15s ease;
+}
+
+.card:hover{
+  box-shadow:0 8px 20px rgba(0,0,0,0.16);
+  transform: translateY(-3px);
+}
+
+.card-thumb{width:100%;height:200px;overflow:hidden}
+.card-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card-body{padding:14px;display:flex;flex-direction:column;flex:1;}
+.card-body .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+.card-body .title{font-weight:700;margin-bottom:6px}
+.card-body .desc{font-size:14px;color:#333;margin-bottom:10px}
+.card-body .cta{margin-top:auto;display:flex;gap:8px}
+a.btn{
+  padding:8px 12px;
+  border-radius:999px; /* pill shape */
+  background:var(--accent);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:13px;
+  display:inline-block;
+  border:0;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:background .15s ease, transform .1s ease, box-shadow .1s ease;
+}
+
+a.btn:hover{
+  background:#2c5282;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(37,99,235,0.3);
+}
+
+a.btn.secondary{
+  background:#4a5568;
+}
+
+a.btn.secondary:hover{
+  background:#2d3748;
+}
+
+
+/* header area for index (if old header exists) */
+header.site-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+  max-width:1200px;
+  margin-left:auto;
+  margin-right:auto;
+  padding:0 18px
+}
+header h1{font-size:24px;color:var(--brand-dark)}
+
+
+.credit {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  margin: 48px 0 20px;
+  opacity: 0.75;
+  letter-spacing: 0.3px;
+}
+.credit:hover {
+  opacity: 1;
+  cursor: default;
+}
+
+/* responsive tweaks */
+@media (max-width:900px){
+  .top-inner{padding:0 12px}
+  .banner-item{width:180px;height:120px}
+  .card-thumb{height:160px}
+}
+
+@media (max-width:520px){
+  .top-inner{gap:8px}
+  .brand-logo{height:40px}
+  .title-wrap .site-main{font-size:16px}
+  .banner-item{width:140px;height:100px}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:var(--gap);
+    margin-top:4px;
+  }
+
+  .card-thumb{height:140px}
+}

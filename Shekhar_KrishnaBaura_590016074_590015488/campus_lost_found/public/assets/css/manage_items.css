@@ -1,0 +1,267 @@
+/* manage_items.css */
+
+:root{
+  --bg:#f6f7fb;
+  --card:#fff;
+  --accent:#2b6cb0;
+  --muted:#6b7280;
+  --danger:#e53e3e;
+  --radius:8px;
+  --border:#e2e8f0;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* top-left back button */
+.back{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:16px;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#e5edf7;
+  color:#1f2937;
+  font-size:14px;
+  font-weight:600;
+  text-decoration:none;
+  border:1px solid #cbd5e1;
+  transition:background .15s ease, transform .1s ease, box-shadow .1s ease;
+}
+
+.back:hover{
+  background:#d0e2ff;
+  color:#111827;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.12);
+}
+
+body{
+  background:var(--bg);
+  font-family:Arial,Helvetica,sans-serif;
+  color:#1a1a1a;
+  line-height:1.4;
+  padding:20px;
+}
+
+/* header */
+header{
+  max-width:1100px;
+  margin:0 auto 18px auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+header h1{
+  font-size:24px;
+  font-weight:800;
+}
+
+.small{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.header-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+/* header buttons */
+/* shared header button base */
+.btn-header{
+  padding:8px 12px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+  display:inline-block;
+  transition:background .15s ease, transform .1s ease, box-shadow .1s ease;
+}
+
+/* primary — Add Item */
+.btn-header.primary{
+  background:var(--accent);
+  color:#fff;
+}
+.btn-header.primary:hover{
+  background:#1e58a1;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.18);
+}
+
+/* secondary — Back to Dashboard */
+.btn-header.secondary{
+  background:#4a5568;
+  color:#fff;
+}
+.btn-header.secondary:hover{
+  background:#2d3748;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.18);
+}
+
+.btn-header:hover{
+  background:#2d3748;
+  transform:translateY(-1px);
+  box-shadow:0 4px 10px rgba(15,23,42,0.20);
+}
+
+/* table container */
+.table-wrap{
+  max-width:1100px;
+  margin:0 auto;
+  background:var(--card);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,0.06);
+}
+
+/* table */
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th{
+  background:#f1f5f9;
+  padding:12px 10px;
+  font-size:14px;
+  font-weight:700;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  color:#374151;
+}
+
+td{
+  padding:12px 10px;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+  vertical-align:middle;
+}
+
+tbody tr:hover{
+  background:#f9fafb;
+}
+
+/* empty row */
+.empty-row{
+  text-align:center;
+  color:var(--muted);
+  font-style:italic;
+}
+
+/* thumbnail */
+.img-thumb{
+  width:80px;
+  height:60px;
+  object-fit:cover;
+  border-radius:6px;
+}
+
+/* status badge – softer label style */
+.badge{
+  padding:3px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+  display:inline-block;
+  border:1px solid transparent;
+}
+
+.badge-lost{
+  background:#dbeafe;
+  color:#1d4ed8;
+  border-color:#bfdbfe;
+}
+
+.badge-claimed{
+  background:#dcfce7;
+  color:#166534;
+  border-color:#bbf7d0;
+}
+
+.badge-default{
+  background:#e5e7eb;
+  color:#374151;
+  border-color:#d1d5db;
+}
+
+/* action column */
+td.actions{
+  white-space:nowrap;          /* keep all buttons on one line */
+}
+
+/* action buttons in table (no flex – avoids border glitches) */
+.btn{
+  padding:6px 10px;
+  text-decoration:none;
+  border-radius:999px;
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+  display:inline-block;
+  line-height:1;
+  margin-right:6px;            /* spacing between buttons */
+  transition:background .15s ease, transform .1s ease, box-shadow .1s ease;
+}
+
+.btn:last-child{
+  margin-right:0;
+}
+
+.btn.edit{
+  background:#2b6cb0;
+}
+
+.btn.delete{
+  background:#dc2626;
+}
+
+.btn.claims{
+  background:#4a5568;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 3px 8px rgba(15,23,42,0.2);
+}
+
+/* responsive */
+@media(max-width:800px){
+  table{
+    font-size:13px;
+  }
+  .img-thumb{
+    width:60px;
+    height:48px;
+  }
+}
+
+@media(max-width:600px){
+  th,
+  td{
+    padding:8px 6px;
+  }
+
+  header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+  }
+
+  .header-actions{
+    margin-top:4px;
+  }
+
+  td.actions{
+    white-space:normal;        /* allow wrapping on very small screens */
+  }
+}
